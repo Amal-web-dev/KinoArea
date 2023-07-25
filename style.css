@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: #232638;
+  background-image: url(./public/img/joker-img.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: top;
+  overflow-x: hidden;
+}
+
+button {
+  cursor: pointer;
+}
+
+main {
+  margin-top: 60px;
+}
+
+button:active {
+  scale: .9;
+}
+
+.container {
+  width: 1420px;
+  margin: 30px auto;
+}
+
+header {
+  height: 55px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+header a {
+  color: white;
+}
+
+a  {
+  text-decoration: none;
+}
+
+.cinema-icon-block {
+  display: flex;
+  align-items: center;
+}
+
+.cinema-icon-block span {
+ color: #3657CB;
+ font-weight: 700;
+ margin-left: 5px;
+ font-size: 22px;
+}
+
+.cinema-icon-block p {
+  font-weight: 700;
+  font-size: 22px;
+}
+
+.network-icons {
+  margin-top: 8px;
+}
+
+.header-center {
+  display: flex;
+  gap: 30px;
+}
+
+.search-btn {
+  padding: 13px 15px;
+  border-radius: 10px;
+  border: none;
+  transition: .3s;
+}
+
+.search-btn:hover  {
+  background-color: #232638;
+}
+
+.search-btn:hover img {
+  filter: invert(100%);
+}
+
+.btn-sign-in { 
+  padding: 15px 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px 0 #4871FFCC;
+  border: none;
+  background-color: #3657CB;
+  color: white;
+  transition: .3s;
+}
+
+.header-right {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn-sign-in:hover {
+  box-shadow: 0 0 15px 10px #4871FFCC;
+}
+
+.hovered-block {
+  padding: 10px;
+  border-radius: 5px;
+  transition: .4s;
+  cursor: pointer;
+}
+
+.hovered-block:hover {
+  background-color: #25559B;
+}
+
+.cinema-logo {
+  cursor: pointer;
+}
+
+.genre-block {
+  color: white;
+  margin-top: 30px;
+  display: flex;
+  gap: 85px;
+  align-items: center;
+}
+
+.genre-block h1 {
+  font-size: 50px;
+}
+
+.all-genre {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.all-genre p {
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.movie {
+  width: 339px;
+  height: 520px;
+  background-image: url(./public/img/joker-post.jpg);
+  background-position: top;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  background-size: 100% 90%;
+  position: relative;
+  cursor: pointer;
+  transition: .3s;
+  overflow: hidden;
+}
+
+.movie-card {
+  background-color: #4871FFCC;
+  position: absolute;
+  top: -90%;
+  width: 100%;
+  height: 90%;
+  border-radius: 10px;
+  transition: .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.movie:hover .movie-card {
+  top: 0;
+}
+
+.card-movie {
+  background-color: white;
+  border-radius: 10px;
+  color: #3657CB;
+  width: 224px;
+  height: 71px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.bottom-description {
+  color: white;
+  position: absolute;
+  bottom: 0px;
+}
+
+.bottom-description h2 {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.bottom-description p {
+  color: #D8DD14;
+  font-size: 14px;
+}
+
+.movies-block {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+}
+
+.rated-block {
+  background-color: #4BCA36;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 3;
+}
