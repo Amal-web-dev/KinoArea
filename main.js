@@ -1,9 +1,12 @@
 import axios from 'axios'
+import { header } from "./modules/header.js";
+
 let img  = import.meta.env.VITE_BASE_IMG
 let moviesBlock = document.querySelector('.movies-block')
 
 //  change icon color
-let cinemaLogo = document.querySelector('.cinema-logo')
+setTimeout(() => {
+    let cinemaLogo = document.querySelector('.cinema-logo')
 cinemaLogo.onclick = () => {
     if (cinemaLogo.src.includes('cinema1.svg')) {
       cinemaLogo.src = './public/icon/cinema-icon.svg';
@@ -11,16 +14,17 @@ cinemaLogo.onclick = () => {
       cinemaLogo.src = './public/icon/cinema1.svg';
     }
   };
-  
-//   change icon  color
+}, 500);
+
+//  change icon color
 
 axios.get("https://api.themoviedb.org/3/movie/popular?language=ru-RU", {
     headers: {
         Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`
     }
-}).then(res => reloadMovie(res.data.results))
+}).then(res => reloadMovie(res.data.results.slice(0, 12)))
 
-
+//  создает обложки кино
 function reloadMovie(arr) {
     for (const movie of arr) {
         let movieBlock = document.createElement('div')
@@ -52,3 +56,7 @@ function reloadMovie(arr) {
         cardBlock.append(cardMovie)
     }
 }
+
+//  создает обложки кино
+
+header()
