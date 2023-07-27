@@ -5,6 +5,7 @@
     <link rel="icon" type="image/svg+xml" href="./public/icon/cinema1.svg" /> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <title>KinoArea</title>
   </head>
   <body>
@@ -87,21 +88,135 @@
         </div>
 
         <div class="movie-trailer-block">
-          <div class="movie-trailer"></div>
+          <!-- <div class="movie-trailer"></div>
           <div class="comment-block">
            <div class="comment-left">
             <h1>Joker</h1>
             <img src="./public/icon/network-icon.svg">
            </div>
            <div class="comment-right">
+            <div class="btn-like-block">
             <button class="btn-like"><img src="./public/icon/Like.svg"></button>
+            <p>0</p>
+          </div>
+          <div class="btn-disLike-block">
             <button class="btn-disLike"><img src="./public/icon/disLike.svg"></button>
+            <p>0</p>
+          </div>
            </div>
+          </div> -->
+        </div>
+
+        <div class="all-new-trailer">
+          <!-- <div class="trailer-movie">
+           <div class="movie-path"></div>
+           <div class="movie-path-title">
+            <h2>Joker</h2>
+           </div>
+          </div> -->
+        </div>
+      </div>
+
+      <div class="popular-movie-block">
+        <div class="popular-top">
+          <h1>Популярные фильмы</h1>
+          <div class="all-hovered">
+            <div class="hovered-block">
+              <p>Всё время</p>
+            </div>
+            <div class="hovered-block">
+              <p>2020</p>
+            </div>
+            <div class="hovered-block">
+              <p>2019</p>
+            </div>
+            <div class="hovered-block">
+              <p>2018</p>
+            </div>
+            <div class="hovered-block">
+              <p>2017</p>
+            </div>
+            <div class="hovered-block">
+              <p>2016</p>
+            </div>
+            <div class="hovered-block">
+              <p>2015</p>
+            </div>
+          </div>
+        </div>
+        <div class="popular-movies-block"></div>
+        <div class="swipe-block">
+          <img src="./public/icon/arrow-left.svg" class="arrow-left">
+          <span class="from-num">4</span> /
+          <span class="to-num"> 12</span>
+          <img src="./public/icon/arrow-right-back.svg" alt="" class="arrow-right">
+        </div>
+      </div>
+
+      <div class="popular-human-cont">
+        <div class="popular-top">
+          <h1>Популярные персоны</h1>
+          <div class="all-hovered">
+            <div class="hovered-block">
+              <p>За год</p>
+            </div>
+            <div class="hovered-block">
+              <p>За месяц</p>
+            </div>
+            <div class="hovered-block">
+              <p>За неделю</p>
+            </div>
+            </div>
+          </div>
+
+          <div class="popular-people-block">
+            <div class="popular-human">
+              <p class="rate-human">1-place</p>
+              <div class="descript-human">
+                <h1>Jason Statham</h1>
+                <h3>Джайсон стэтхам</h3>
+                <h2>57 лет</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="last-news-cont">
+          <div class="popular-top">
+            <h1>Последние новости</h1>
+            <h2>Все новости</h2>
+          </div>
+          <div class="last-news-block">
+            <div class="last-news-movie">
+
+            </div>
           </div>
         </div>
       </div>
     </main>
-  </div>
+
+    <div class="footer-cont">
+      <div class="container">
+        <div class="links-cont">
+          <div class="top-links">
+            <img src="./public/icon/cinema-icon.svg" alt="">
+            <span>Kinoarea</span>
+          </div>
+
+          <div class="center-links">
+            <h1>Подпишитесь на E-mail рассылку</h1>
+           <p>Если хотиет быть в курсе последних новостей и новинок кино - <br> заполните форму ниже и оформите бесплатную E-mail рассылку! </p>
+
+           <div class="bottom-links">
+            <input type="email" placeholder="Введите свой E-mail адрес">
+            <button class="follow-btn">Подписаться</button>
+           </div>
+          </div>
+        </div>
+
+        
+      </div>
+    </div>
 
     <script type="module" src="/main.js"></script>
   </body>

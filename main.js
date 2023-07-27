@@ -1,8 +1,21 @@
-import axios from 'axios'
+import axios, { formToJSON } from 'axios'
 import { header } from "./modules/header.js";
+import { reloadMovie, createTrailerMovie, allNewTrailer } from "./modules/function.js";
+import { axiosGet12, axiosGet1, axiosGet12Popular, axiosGetPopular } from "./modules/ui.js";
+
+header()
 
 let img  = import.meta.env.VITE_BASE_IMG
 let moviesBlock = document.querySelector('.movies-block')
+let movieTrailerBlock = document.querySelector('.movie-trailer-block')
+let allNewTrailerBlock = document.querySelector('.all-new-trailer')
+let popularMoviesBlock = document.querySelector('.popular-movies-block')
+let arrowLeft = document.querySelector('.arrow-left')
+let arrowRight = document.querySelector('.arrow-right')
+let fromNum = document.querySelector('.from-num') 
+let toNum = document.querySelector('.to-num') 
+let countFrom = 0
+let countTo = 4 
 
 //  change icon color
 setTimeout(() => {
@@ -15,48 +28,55 @@ cinemaLogo.onclick = () => {
     }
   };
 }, 500);
-
 //  change icon color
 
-axios.get("https://api.themoviedb.org/3/movie/popular?language=ru-RU", {
-    headers: {
-        Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`
-    }
-}).then(res => reloadMovie(res.data.results.slice(0, 12)))
-
 //  создает обложки кино
-function reloadMovie(arr) {
-    for (const movie of arr) {
-        let movieBlock = document.createElement('div')
-        let bottomBlock = document.createElement('div')
-        let rateBlock = document.createElement('div')
-        let cardBlock = document.createElement('div')
-        let cardMovie = document.createElement('div')
-        let h3 = document.createElement('h3')
-        let p = document.createElement('p')
+axiosGet12Popular(reloadMovie, moviesBlock)
+//  создает обложки кино
 
-        movieBlock.classList.add('movie')
-        bottomBlock.classList.add('bottom-description')
-        rateBlock.classList.add('rated-block')
-        cardBlock.classList.add('movie-card')
-        cardMovie.classList.add('card-movie')
 
-        if(movie.title.length > 25) {
-            h3.innerHTML = movie.title.slice(0, 25) + ' . . . .'
-        } else {
-            h3.innerHTML = movie.title.slice(0, 25)
-        }
-        movieBlock.style.backgroundImage = 'url(' +  img + movie.poster_path + ')'
-        rateBlock.innerHTML = movie.vote_average
-        cardMovie.innerHTML = 'Карточка фильма'
+//  create trailer
+axiosGet1(createTrailerMovie)
+//  create trailer
 
-        moviesBlock.append(movieBlock)
-        movieBlock.append(bottomBlock, rateBlock, cardBlock)
-        bottomBlock.append(h3, p)
-        cardBlock.append(cardMovie)
+
+// create all trailer 
+axiosGet12(allNewTrailer)
+// create all trailer 
+
+// popular movie
+
+// swiper
+fromNum.innerHTML = countFrom
+toNum.innerHTML = countTo
+arrowLeft.onclick = () => {
+    if(countFrom <= 0) {
+        arrowLeft.style.filter = 'invert(50%)'
+    } else {
+        countFrom -= 4
+        countTo -= 4
+        fromNum.innerHTML = countFrom
+        toNum.innerHTML = countTo
+    axiosGetPopular(reloadMovie, popularMoviesBlock, countFrom, countTo)
+    arrowLeft.style.filter = 'invert(100%)'
+    arrowRight.style.filter = 'invert(100%)'
     }
 }
 
-//  создает обложки кино
-
-header()
+arrowRight.onclick = () => {
+    if(countTo >= 20) {
+        arrowRight.style.filter = 'invert(50%)'
+    } else {
+        countFrom += 4
+        countTo += 4
+        fromNum.innerHTML = countFrom
+        toNum.innerHTML = countTo
+    axiosGetPopular(reloadMovie, popularMoviesBlock, countFrom, countTo)
+    arrowRight.style.filter = 'invert(100%)'
+    arrowLeft.style.filter = 'invert(100%)'
+    }
+   
+}
+// swiper
+axiosGetPopular(reloadMovie, popularMoviesBlock, 0, 4)
+// popular movie
