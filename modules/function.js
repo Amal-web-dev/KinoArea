@@ -35,11 +35,11 @@ export function reloadMovie(arr, place) {
     }
 }
 
-
+let counterLike = 0
+    let counterDisLike = 0
 // create trailer
 export function createTrailerMovie(arr) {
-    let counterLike = 0
-    let counterDisLike = 0
+    
     let isLiked = false; 
     let isDisLiked = false; 
 
@@ -58,6 +58,8 @@ export function createTrailerMovie(arr) {
         let btnDisLikeP = document.createElement('p')
         let likeIcon = document.createElement('img')
         let disLikeIcon = document.createElement('img')
+        let stopVideoBlock = document.createElement('div')
+        let stopVideoIcon = document.createElement('img')
     
         movieTrailer.classList.add('movie-trailer')
         commentBlock.classList.add('comment-block')
@@ -67,17 +69,26 @@ export function createTrailerMovie(arr) {
         btnDisLikeBlock.classList.add('btn-disLike-block')
         btnLike.classList.add('btn-like')
         btnDisLike.classList.add('btn-disLike')
+        stopVideoBlock.classList.add('stop-video-block')
     
         likeIcon.src = './public/icon/Like.svg'
         disLikeIcon.src = './public/icon/disLike.svg'
         commentImg.src = './public/icon/network-icon.svg' 
-        btnDisLikeP.innerHTML = 0
+        counterLike = Math.floor(trailer.vote_count)
+        counterDisLike = Math.floor(trailer.vote_count / 3) 
+        btnDisLikeP.innerHTML = counterDisLike
         btnlikeP.innerHTML = counterLike
         commentH1.innerHTML = trailer.title
         movieTrailer.style.backgroundImage = 'url(' +  img + trailer.backdrop_path + ')' 
-    
+        stopVideoBlock.style.width = '100px'
+        stopVideoBlock.style.height = '100px'
+        stopVideoIcon.src = './public/icon/stop-video-icon.svg'
+        stopVideoIcon.style.width = '70px'
+        stopVideoIcon.style.paddingLeft = '10px'
+        
+
         movieTrailerBlock.append(movieTrailer)
-        movieTrailer.append(commentBlock)
+        movieTrailer.append(commentBlock, stopVideoBlock)
         commentBlock.append(commentLeft, commentRight)
         commentLeft.append(commentH1, commentImg)
         commentRight.append(btnLikeBlock, btnDisLikeBlock)
@@ -85,19 +96,32 @@ export function createTrailerMovie(arr) {
         btnDisLikeBlock.append(btnDisLike, btnDisLikeP)
         btnDisLike.append(disLikeIcon)
         btnLike.append(likeIcon)
+        stopVideoBlock.append(stopVideoIcon)
     
     
+let stopFalse = false
+        stopVideoBlock.onclick = () => {
+            if(stopFalse == false) {
+                stopVideoIcon.src = './public/icon/start-video-icon.svg'
+                stopVideoIcon.style.paddingLeft = '0px'
+                stopFalse = true
+            }else if(stopFalse == true) {
+                stopVideoIcon.src = './public/icon/stop-video-icon.svg'
+                stopVideoIcon.style.paddingLeft = '10px'
+                stopFalse = false
+            }
+        }
     
-        btnLikeBlock.onclick = () => {
+        btnLike.onclick = () => {
               if (isLiked) {
                 likeIcon.src = './public/icon/Like.svg';
-                counterLike--;
+                    counterLike--;
                 btnlikeP.innerHTML = counterLike;
                 isLiked = false;
               } else {
                 likeIcon.src = './public/icon/Like-full.svg';
                 disLikeIcon.src = './public/icon/disLike.svg';
-                if(counterDisLike > 0) {
+                if(isDisLiked) {
                    counterDisLike--;
                 }
                 btnDisLikeP.innerHTML = counterDisLike;
@@ -107,11 +131,12 @@ export function createTrailerMovie(arr) {
                 isLiked = true;
               }
           };
+
           
-          btnDisLikeBlock.onclick = () => {
+          btnDisLike.onclick = () => {
               if (isDisLiked) {
                 disLikeIcon.src = './public/icon/disLike.svg';
-                counterDisLike--;
+                    counterDisLike--;
                 btnDisLikeP.innerHTML = counterDisLike;
                 isDisLiked = false;
               } else {
@@ -120,7 +145,7 @@ export function createTrailerMovie(arr) {
                 btnDisLikeP.innerHTML = counterDisLike;
                 isDisLiked = true;
                 likeIcon.src = './public/icon/Like.svg';
-                if(counterLike > 0) {
+                if(isLiked) {
                    counterLike--;
                 }
                 btnlikeP.innerHTML = counterLike;
@@ -139,14 +164,18 @@ export function createTrailerMovie(arr) {
 
 export function allNewTrailer(arr) {
     for (const trailer of arr) {
+        
         let trailerMovie = document.createElement('div')
         let moviePath = document.createElement('div')
         let moviePathTitle = document.createElement('div')
         let moviePathTitleH2 = document.createElement('h2')
-
+        let stopVideoBlock = document.createElement('div')
+        let stopVideoIcon = document.createElement('img')
+        
         trailerMovie.classList.add('trailer-movie')
         moviePath.classList.add('movie-path')
         moviePathTitle.classList.add('movie-path-title')
+        stopVideoBlock.classList.add('stop-video-block')
 
         if(trailer.title.length > 20) {
             moviePathTitleH2.innerHTML = trailer.title.slice(0, 20) + '. . . .'
@@ -154,18 +183,108 @@ export function allNewTrailer(arr) {
             moviePathTitleH2.innerHTML = trailer.title.slice(0, 20)
         }
         moviePath.style.backgroundImage = 'url(' +  img + trailer.backdrop_path + ')' 
+        stopVideoIcon.src = './public/icon/stop-video-icon.svg'
+        moviePath.classList.add('movie-path')
 
         allNewTrailerBlock.append(trailerMovie)
-        trailerMovie.append(moviePath, moviePathTitle)
+        trailerMovie.append(moviePath, moviePathTitle, stopVideoBlock)
         moviePathTitle.append(moviePathTitleH2)
+        stopVideoBlock.append(stopVideoIcon)
 
 
         moviePath.onclick = () => {
-            let movieTrailer = document.querySelector('.movie-trailer')
-            movieTrailer.style.backgroundImage = moviePath.style.backgroundImage
-            // console.log(moviePath.style.backgroundImage);
-        }
+            let movieTrailer = document.querySelector('.movie-trailer');
+            moviePath.style.border = '2px solid #3657CB';
+            let otherMoviePaths = document.querySelectorAll('.movie-path');
+            otherMoviePaths.forEach((path) => {
+              if (path !== moviePath) {
+                path.style.border = 'none';
+              }
+            });
+            let movieTrailerTitle = document.querySelector('.movie-trailer h1');
+            let btnDisLikeP = document.querySelector('.movie-trailer .btn-disLike-block p');
+            let btnLikeP = document.querySelector('.movie-trailer .btn-like-block p');
+            movieTrailer.style.backgroundImage = moviePath.style.backgroundImage;
+            movieTrailerTitle.innerHTML = trailer.title;
+            counterLike = Math.floor(trailer.vote_count);
+            counterDisLike = Math.floor(trailer.vote_count / 3);
+            btnDisLikeP.innerHTML = counterDisLike;
+            btnLikeP.innerHTML = counterLike;
+          };
     }
 }
 
 // create all trailer 
+
+
+
+
+// create allNewsInf
+
+export function allNewsInfFunc(arr, place) {
+    place.innerHTML = ''
+
+    for (const item of arr) {
+        let lastNewsMovie = document.createElement('div')
+        let aboutBlock = document.createElement('div')
+        let spanDate = document.createElement('span')
+        let spanView = document.createElement('span')
+        let spanComments = document.createElement('span')
+        let viewIcon = document.createElement('img')
+        let commentsIcon = document.createElement('img')
+        let descriptNewsBlock = document.createElement('div')
+        let descH1 = document.createElement('h1')
+        let descP = document.createElement('p')
+
+        lastNewsMovie.classList.add('last-news-movie')
+        aboutBlock.classList.add('about-block')
+        descriptNewsBlock.classList.add('description-news-block')
+
+        spanDate.innerHTML = item.release_date
+        spanDate.id = 'date'
+        spanView.innerHTML = '242'
+        spanComments.innerHTML = '14'
+        descH1.innerHTML = item.title
+        descP.innerHTML = item.overview
+        viewIcon.src = './public/icon/views.svg'
+        commentsIcon.src = './public/icon/comments.svg'
+        lastNewsMovie.style.backgroundImage = 'url(' +  img + item.backdrop_path + ')' 
+
+        place.append(lastNewsMovie)
+        lastNewsMovie.append(aboutBlock, descriptNewsBlock)
+        aboutBlock.append(spanDate, viewIcon, spanView, commentsIcon, spanComments)
+        descriptNewsBlock.append(descH1, descP)
+    }
+}
+
+export function createAllNews(arr, place) {
+    place.innerHTML = ''
+
+    for (const news of arr) {
+        let lastNews = document.createElement('div')
+        let p = document.createElement('p')
+        let h3 = document.createElement('h3')
+
+        lastNews.classList.add('last-news-mini')
+
+        p.innerHTML = news.release_date
+        h3.innerHTML = news.title
+        lastNews.style.backgroundImage = 'url(' +  img + news.backdrop_path + ')' 
+
+        place.append(lastNews)
+        lastNews.append(p, h3)
+
+        lastNews.onclick = ()  => {
+        let lastNewsMovie = document.querySelector('.last-news-movie')
+        let lastNewsMovieTitle = document.querySelector('.last-news-movie h1')
+        let lastNewsMovieDate = document.querySelector('.last-news-movie #date')
+        let lastNewsMovieDesc = document.querySelector('.last-news-movie .description-news-block p')
+        setTimeout(() => {
+        lastNewsMovie.style.backgroundImage = lastNews.style.backgroundImage
+        }, 0);
+        lastNewsMovieTitle.innerHTML = h3.innerHTML
+        lastNewsMovieDate.innerHTML = p.innerHTML
+        lastNewsMovieDesc.innerHTML = news.overview
+        }
+    }
+}

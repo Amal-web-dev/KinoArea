@@ -1,6 +1,6 @@
 import axios, { formToJSON } from 'axios'
 import { header } from "./modules/header.js";
-import { reloadMovie, createTrailerMovie, allNewTrailer } from "./modules/function.js";
+import { reloadMovie, createTrailerMovie, allNewTrailer, allNewsInfFunc, createAllNews } from "./modules/function.js";
 import { axiosGet12, axiosGet1, axiosGet12Popular, axiosGetPopular } from "./modules/ui.js";
 
 header()
@@ -10,8 +10,10 @@ let moviesBlock = document.querySelector('.movies-block')
 let movieTrailerBlock = document.querySelector('.movie-trailer-block')
 let allNewTrailerBlock = document.querySelector('.all-new-trailer')
 let popularMoviesBlock = document.querySelector('.popular-movies-block')
+let lastNewsBlock = document.querySelector('.last-news-block')
 let arrowLeft = document.querySelector('.arrow-left')
 let arrowRight = document.querySelector('.arrow-right')
+let allLastNewsBlock = document.querySelector('.all-last-news-block')
 let fromNum = document.querySelector('.from-num') 
 let toNum = document.querySelector('.to-num') 
 let countFrom = 0
@@ -80,3 +82,11 @@ arrowRight.onclick = () => {
 // swiper
 axiosGetPopular(reloadMovie, popularMoviesBlock, 0, 4)
 // popular movie
+
+// selected news
+axiosGetPopular(allNewsInfFunc, lastNewsBlock, 1, 2)
+// selected news
+
+// ALL NEWS
+axiosGetPopular(createAllNews, allLastNewsBlock, 0, 4)
+// ALL NEWS
