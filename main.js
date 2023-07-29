@@ -1,9 +1,11 @@
 import axios, { formToJSON } from 'axios'
-import { header } from "./modules/header.js";
+import { header, footer } from "./modules/header.js";
 import { otherPerson, reloadMovie, createTrailerMovie, allNewTrailer, allNewsInfFunc, createAllNews, createPopularPerson } from "./modules/function.js";
 import { axiosGet12, axiosGet1, axiosGet12Popular, axiosGetPopular, axiosGetPopularHuman } from "./modules/ui.js";
+let footerCont = document.querySelector('.footer-cont')
 
 header()
+footer(footerCont)
 
 let img  = import.meta.env.VITE_BASE_IMG
 let moviesBlock = document.querySelector('.movies-block')

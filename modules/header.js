@@ -56,3 +56,42 @@ let container = document.querySelector('.container')
    buttonSearh.append(iconSearch)
 
 }
+
+
+
+export function footer(place) {
+     place.innerHTML += `
+     <div class="container">
+        <div class="links-cont">
+          <div class="top-links">
+            <img src="./public/icon/cinema-icon.svg" alt="">
+            <span>Kinoarea</span>
+          </div>
+
+          <div class="center-links">
+            <h1>Подпишитесь на E-mail рассылку</h1>
+           <p>Если хотиет быть в курсе последних новостей и новинок кино - <br> заполните форму ниже и оформите бесплатную E-mail рассылку! </p>
+
+           <div class="bottom-links">
+            <input type="email" placeholder="Введите свой E-mail адрес">
+            <button class="follow-btn">Подписаться</button>
+           </div>
+          </div>
+        </div>
+
+        <div class="links-network-block">
+          <img src="/public/icon/many-links.svg" alt="">
+          <div class="all-hovered-block all-afish">
+            <div class="hovered-block"><p>Афиша</p></div>
+            <div class="hovered-block"><p>Новости</p></div>
+            <div class="hovered-block"><p>Персоны</p></div>
+            <div class="hovered-block"><p>Рейтинги</p></div>
+            <div class="hovered-block"><p>Рецензии</p></div>
+            <div class="hovered-block"><p>Каталог фильмов</p></div>
+          </div>
+          <p>2020 © Kinoarea.  Все права защищены</p>
+        </div>
+        
+      </div>
+     `
+}

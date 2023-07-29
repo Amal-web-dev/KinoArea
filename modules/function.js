@@ -392,3 +392,6 @@ export function aboutMovieFunc(arr,  place) {
 </div>
         `
  }
+
+
+
