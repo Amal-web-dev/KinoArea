@@ -33,3 +33,12 @@ export function axiosGetPopular(arr, place, from, to) {
     }
 }).then(res => arr(res.data.results.slice(from, to), place))
 }
+
+export function axiosGetPopularHuman(arr, place, from, to) {
+axios.get(import.meta.env.VITE_PERSON_URL , {
+    headers: {
+      Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
+      Accept: 'application/json'
+    }
+  }).then(res => arr(res.data.results.slice(from, to), place))
+}

@@ -32,6 +32,10 @@ export function reloadMovie(arr, place) {
         movieBlock.append(bottomBlock, rateBlock, cardBlock)
         bottomBlock.append(h3, p)
         cardBlock.append(cardMovie)
+
+        cardBlock.onclick = () => {
+            location.assign('/pages/aboutCard/?id=' + movie.id)
+          }
     }
 }
 
@@ -288,3 +292,103 @@ export function createAllNews(arr, place) {
         }
     }
 }
+
+// create person
+
+export function createPopularPerson(arr, place) {
+    place.innerHTML = ''
+    let counPlace = 1
+      
+    for (const person of arr) {
+        let popularHuman = document.createElement('div')
+        let descHuman = document.createElement('div')
+        let h1 = document.createElement('h1')
+        let h2 = document.createElement('h2')
+        let h3 = document.createElement('h3')
+        let p = document.createElement('p')
+ 
+        popularHuman.classList.add('popular-human')
+        descHuman.classList.add('descript-human')
+        p.classList.add('rate-human')
+
+        h1.innerHTML = person.name
+        h3.innerHTML = person.original_name
+        h2.innerHTML = Math.floor(person.id / 10) + ' лет'
+        p.innerHTML = counPlace +  '-е место'
+        popularHuman.style.backgroundImage ='url(' +  img + person.profile_path + ')'  
+
+        place.append(popularHuman)
+        popularHuman.append(descHuman, p)
+        descHuman.append(h1, h3, h2)
+
+        counPlace++
+
+    }
+
+}
+// create person
+
+// create other person
+
+export function otherPerson(arr, place) {
+    place.innerHTML = ''
+    let placeCount = 3
+
+    for (const person of arr) {
+        let otherHuman = document.createElement('div')
+        let infHuman = document.createElement('div')
+        let placeBlock = document.createElement('div')
+        let h1 = document.createElement('h1')
+        let h2 = document.createElement('h2')
+        let h3 = document.createElement('h3')
+        let p = document.createElement('p')
+
+
+        otherHuman.classList.add('other-human')
+        infHuman.classList.add('inf-human-block')
+        placeBlock.classList.add('place-block')
+
+        h1.innerHTML = person.name
+        h2.innerHTML = Math.floor(person.id / 10)
+        h3.innerHTML = person.original_name
+        p.innerHTML = placeCount + '-е место'
+
+        place.append(otherHuman)
+        otherHuman.append(infHuman, placeBlock)
+        infHuman.append(h1, h3, h2)
+        placeBlock.append(p)
+
+        placeCount++
+    }
+ } 
+
+
+export function aboutMovieFunc(arr,  place) {
+        place.innerHTML += `
+        <div class="about-movie-block">
+        <div class="poster-movie" style='background-image: url(${img + arr.poster_path})'>
+    </div>
+    <div class="about-right">
+    <h1>${arr.title}</h1>
+    <h3>${arr.original_title}</h3>
+    <div class="rate-imdb-block">${arr.vote_average.toFixed(1)}- IMDB</div>
+    <div class="desc-about-movie">
+    <p>${arr.overview}</p>
+</div>
+<button class="see-btn"><img src="/public/icon/see-video-icon.svg" alt=""> Смотреть трейлер</button>
+</div>
+</div>
+<div class="about-movie-ratings">
+     <div class="btn-like"><img src="/public/icon/Like.svg" alt=""></div>
+     <div class="btn-disLike"><img src="/public/icon/disLike.svg" alt=""></div>
+     <div class="rating-waiting-block">Рейтинг ожиданий ${arr.vote_average.toFixed(1) * 10}% 
+     <div class="rating-waiting-block-bar" style='width: ${arr.vote_average.toFixed(1) * 10}%'></div>
+     <div class="rating-waiting-block-bar-black"></div>
+     </div>
+     <div class="like-block">
+        <button class="btn-like heart-btn"><img src="/public/icon/heart-icon.svg" alt=""></button>
+        <span>В избранном у 37933 человек </span>
+     </div>
+</div>
+        `
+ }

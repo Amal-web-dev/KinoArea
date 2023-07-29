@@ -489,6 +489,9 @@ a  {
   background-color: #25559B;
   border-radius: 10px;
   position: relative;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .popular-people-block {
@@ -695,4 +698,87 @@ a  {
   background-repeat: no-repeat;
   cursor: pointer;
   transition: .3s;
+}
+
+.other-popular-human {
+  width: 37%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: scroll;
+}
+
+.all-popular-human-block {
+  position: relative;
+}
+
+.other-human {
+  height: 35%;
+  width: 100%;
+  background-color: #151A26;
+  border-radius: 10px;
+  padding: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.other-popular-human div {
+  flex-shrink: 0; 
+}
+
+.other-human h1 {
+  color: white;
+}
+
+.other-human h2 {
+  color: #F1F50F;
+  margin-top: 5px;
+}
+
+.other-human h3 {
+  color: #3B486B;
+  margin-top: 5px;
+}
+
+.place-block p {
+  color: #D8DD14;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.btn-top {
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  background-color: #100F14;
+  padding: 10px;
+  border-radius: 5px;
+  width: 73px;
+  height: 73px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.all-afish {
+  display: flex;
+  color: #6D717D;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.links-network-block {
+  text-align: center;
+  width: 100%;
+  margin-top: 50px;
+  color: white;
 }

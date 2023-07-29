@@ -28,12 +28,12 @@ let container = document.querySelector('.container')
     buttonSearh.classList.add('search-btn')
     buttonSignIn.classList.add('btn-sign-in')
 
-    iconSearch.src = './public/icon/search-icon.svg'
+    iconSearch.src = '/public/icon/search-icon.svg'
     buttonSignIn.innerHTML = 'Войти'
     cinemaIconP.innerHTML = 'area'
     cinemaIconSpan.innerHTML = 'Kino'
-    cinemaIcon.src = './public/icon/cinema-icon.svg'
-    networkIcon.src = './public/icon/network-icon.svg'
+    cinemaIcon.src = '/public/icon/cinema-icon.svg'
+    networkIcon.src = '/public/icon/network-icon.svg'
 
    for (const mov of typeMovie) {
     let aType = document.createElement('a')

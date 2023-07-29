@@ -1,7 +1,7 @@
 import axios, { formToJSON } from 'axios'
 import { header } from "./modules/header.js";
-import { reloadMovie, createTrailerMovie, allNewTrailer, allNewsInfFunc, createAllNews } from "./modules/function.js";
-import { axiosGet12, axiosGet1, axiosGet12Popular, axiosGetPopular } from "./modules/ui.js";
+import { otherPerson, reloadMovie, createTrailerMovie, allNewTrailer, allNewsInfFunc, createAllNews, createPopularPerson } from "./modules/function.js";
+import { axiosGet12, axiosGet1, axiosGet12Popular, axiosGetPopular, axiosGetPopularHuman } from "./modules/ui.js";
 
 header()
 
@@ -16,6 +16,9 @@ let arrowRight = document.querySelector('.arrow-right')
 let allLastNewsBlock = document.querySelector('.all-last-news-block')
 let fromNum = document.querySelector('.from-num') 
 let toNum = document.querySelector('.to-num') 
+let  popularPeopleBlock  = document.querySelector('.popular-people-block')
+let otherPopularHuman = document.querySelector('.other-popular-human')
+let btnTop = document.querySelector('.btn-top')
 let countFrom = 0
 let countTo = 4 
 
@@ -90,3 +93,12 @@ axiosGetPopular(allNewsInfFunc, lastNewsBlock, 1, 2)
 // ALL NEWS
 axiosGetPopular(createAllNews, allLastNewsBlock, 0, 4)
 // ALL NEWS
+
+axiosGetPopularHuman(createPopularPerson, popularPeopleBlock, 0, 2)
+
+
+axiosGetPopularHuman(otherPerson, otherPopularHuman, 2, 20)
+
+btnTop.onclick = () => {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
