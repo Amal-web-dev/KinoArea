@@ -2,6 +2,7 @@ let img  = import.meta.env.VITE_BASE_IMG
 let moviesBlock = document.querySelector('.movies-block')
 let movieTrailerBlock = document.querySelector('.movie-trailer-block')
 let allNewTrailerBlock = document.querySelector('.all-new-trailer')
+import { getDetails } from "./https.request";
 
 export function reloadMovie(arr, place) {
     for (const movie of arr) {
@@ -62,8 +63,6 @@ export function createTrailerMovie(arr) {
         let btnDisLikeP = document.createElement('p')
         let likeIcon = document.createElement('img')
         let disLikeIcon = document.createElement('img')
-        let stopVideoBlock = document.createElement('div')
-        let stopVideoIcon = document.createElement('img')
     
         movieTrailer.classList.add('movie-trailer')
         commentBlock.classList.add('comment-block')
@@ -73,7 +72,6 @@ export function createTrailerMovie(arr) {
         btnDisLikeBlock.classList.add('btn-disLike-block')
         btnLike.classList.add('btn-like')
         btnDisLike.classList.add('btn-disLike')
-        stopVideoBlock.classList.add('stop-video-block')
     
         likeIcon.src = './public/icon/Like.svg'
         disLikeIcon.src = './public/icon/disLike.svg'
@@ -83,16 +81,12 @@ export function createTrailerMovie(arr) {
         btnDisLikeP.innerHTML = counterDisLike
         btnlikeP.innerHTML = counterLike
         commentH1.innerHTML = trailer.title
-        movieTrailer.style.backgroundImage = 'url(' +  img + trailer.backdrop_path + ')' 
-        stopVideoBlock.style.width = '100px'
-        stopVideoBlock.style.height = '100px'
-        stopVideoIcon.src = './public/icon/stop-video-icon.svg'
-        stopVideoIcon.style.width = '70px'
-        stopVideoIcon.style.paddingLeft = '10px'
+        // movieTrailer.style.backgroundImage = 'url(' +  img + trailer.backdrop_path + ')' 
+        
         
 
-        movieTrailerBlock.append(movieTrailer)
-        movieTrailer.append(commentBlock, stopVideoBlock)
+        movieTrailerBlock.append(movieTrailer)/
+        movieTrailer.append(commentBlock)
         commentBlock.append(commentLeft, commentRight)
         commentLeft.append(commentH1, commentImg)
         commentRight.append(btnLikeBlock, btnDisLikeBlock)
@@ -100,21 +94,6 @@ export function createTrailerMovie(arr) {
         btnDisLikeBlock.append(btnDisLike, btnDisLikeP)
         btnDisLike.append(disLikeIcon)
         btnLike.append(likeIcon)
-        stopVideoBlock.append(stopVideoIcon)
-    
-    
-let stopFalse = false
-        stopVideoBlock.onclick = () => {
-            if(stopFalse == false) {
-                stopVideoIcon.src = './public/icon/start-video-icon.svg'
-                stopVideoIcon.style.paddingLeft = '0px'
-                stopFalse = true
-            }else if(stopFalse == true) {
-                stopVideoIcon.src = './public/icon/stop-video-icon.svg'
-                stopVideoIcon.style.paddingLeft = '10px'
-                stopFalse = false
-            }
-        }
     
         btnLike.onclick = () => {
               if (isLiked) {
@@ -165,6 +144,7 @@ let stopFalse = false
 //  create trailer
 
 // create all trailer 
+let trailerMovieIframe = document.querySelector(".trailers_player")
 
 export function allNewTrailer(arr) {
     for (const trailer of arr) {
@@ -195,9 +175,16 @@ export function allNewTrailer(arr) {
         moviePathTitle.append(moviePathTitleH2)
         stopVideoBlock.append(stopVideoIcon)
 
+        getDetails(`/movie/${trailer.id}/videos`)
+        .then(res => {
+            let videoObj = res.data.results[0]
+
+            trailerMovieIframe.src = `https://www.youtube.com/embed/${videoObj.key}`
+
+        })
 
         moviePath.onclick = () => {
-            let movieTrailer = document.querySelector('.movie-trailer');
+            // let movieTrailer = document.querySelector('.movie-trailer');
             moviePath.style.border = '2px solid #3657CB';
             let otherMoviePaths = document.querySelectorAll('.movie-path');
             otherMoviePaths.forEach((path) => {
@@ -208,12 +195,20 @@ export function allNewTrailer(arr) {
             let movieTrailerTitle = document.querySelector('.movie-trailer h1');
             let btnDisLikeP = document.querySelector('.movie-trailer .btn-disLike-block p');
             let btnLikeP = document.querySelector('.movie-trailer .btn-like-block p');
-            movieTrailer.style.backgroundImage = moviePath.style.backgroundImage;
+            // movieTrailer.style.backgroundImage = moviePath.style.backgroundImage;
             movieTrailerTitle.innerHTML = trailer.title;
             counterLike = Math.floor(trailer.vote_count);
             counterDisLike = Math.floor(trailer.vote_count / 3);
             btnDisLikeP.innerHTML = counterDisLike;
             btnLikeP.innerHTML = counterLike;
+
+            getDetails(`/movie/${trailer.id}/videos`)
+                .then(res => {
+                    let videoObj = res.data.results[0]
+
+                    trailerMovieIframe.src = `https://www.youtube.com/embed/${videoObj.key}`
+
+                })
           };
     }
 }
@@ -372,6 +367,11 @@ export function aboutMovieFunc(arr,  place) {
     <h1>${arr.title}</h1>
     <h3>${arr.original_title}</h3>
     <div class="rate-imdb-block">${arr.vote_average.toFixed(1)}- IMDB</div>
+    <div id="IMDb" style="width: 70px; height: 70px;">
+            <canvas id="IMDbChart"></canvas>
+                    <div class="rate__counter rate__counter_IMDb"><span>6.70</span></div>
+                <p>IMDb</p>
+            </div>
     <div class="desc-about-movie">
     <p>${arr.overview}</p>
 </div>

@@ -9,11 +9,13 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "axios": "^1.4.0",
+    "chart": "^0.1.2",
+    "chart.js": "^4.3.2",
     "json-server": "^0.17.3",
     "vite": "^4.3.9"
   },
   "dependencies": {
-    "axios": "^1.4.0",
     "concurrently": "^8.2.0"
   }
 }

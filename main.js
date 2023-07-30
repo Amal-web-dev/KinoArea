@@ -1,7 +1,7 @@
 import axios, { formToJSON } from 'axios'
 import { header, footer } from "./modules/header.js";
 import { otherPerson, reloadMovie, createTrailerMovie, allNewTrailer, allNewsInfFunc, createAllNews, createPopularPerson } from "./modules/function.js";
-import { axiosGet12, axiosGet1, axiosGet12Popular, axiosGetPopular, axiosGetPopularHuman } from "./modules/ui.js";
+import { axiosGet12, axiosGet1, axiosGet8Popular, axiosGetPopular, axiosGetPopularHuman } from "./modules/ui.js";
 let footerCont = document.querySelector('.footer-cont')
 
 header()
@@ -21,6 +21,7 @@ let toNum = document.querySelector('.to-num')
 let  popularPeopleBlock  = document.querySelector('.popular-people-block')
 let otherPopularHuman = document.querySelector('.other-popular-human')
 let btnTop = document.querySelector('.btn-top')
+let allPopularBtn = document.querySelector('.all-popular')
 let countFrom = 0
 let countTo = 4 
 
@@ -36,9 +37,24 @@ cinemaLogo.onclick = () => {
   };
 }, 500);
 //  change icon color
+let hiddenFalse = false
 
 //  создает обложки кино
-axiosGet12Popular(reloadMovie, moviesBlock)
+allPopularBtn.onclick = () =>  {
+    if(!hiddenFalse) {
+        axiosGet8Popular(reloadMovie, moviesBlock, 0, 20)
+        allPopularBtn.innerHTML = 'Скрыть все'
+        hiddenFalse = true
+        window.scrollTo({top: 2000, behavior: 'smooth'});
+    }else if(hiddenFalse) {
+        console.log('asfaf');
+        axiosGet8Popular(reloadMovie, moviesBlock, 0, 8)
+        allPopularBtn.innerHTML = 'Bсе новинки'
+        hiddenFalse = false
+        window.scrollTo({top: 200, behavior: 'smooth'});
+    }
+}
+axiosGet8Popular(reloadMovie, moviesBlock, 0, 8)
 //  создает обложки кино
 
 

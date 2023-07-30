@@ -17,12 +17,13 @@ export function axiosGet1(arr) {
 }).then(res => arr(res.data.results.slice(0, 1)))
 }
 
-export function axiosGet12Popular(arr, place) {
+export function axiosGet8Popular(arr, place, from, to) {
+    place.innerHTML = ''
     axios.get("https://api.themoviedb.org/3/movie/popular?language=ru-RU", {
     headers: {
         Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`
     }
-}).then(res => arr(res.data.results.slice(0, 12), place))
+}).then(res => arr(res.data.results.slice(from, to), place))
 }
 
 export function axiosGetPopular(arr, place, from, to) {
