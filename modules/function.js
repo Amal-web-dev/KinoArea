@@ -27,7 +27,14 @@ export function reloadMovie(arr, place) {
         }
         movieBlock.style.backgroundImage = 'url(' +  img + movie.poster_path + ')'
         rateBlock.innerHTML = movie.vote_average
-        cardMovie.innerHTML = 'Карточка фильма'
+        cardMovie.innerHTML = 'Карточка фильма'  
+        getDetails(`/movie/${movie.id}?language=ru-RU`)
+        .then(res => {
+            const { data: { genres } } = res
+            for (let gen of genres) {
+                p.innerHTML = gen.name
+            }
+        })
 
         place.append(movieBlock)
         movieBlock.append(bottomBlock, rateBlock, cardBlock)
@@ -263,17 +270,30 @@ export function createAllNews(arr, place) {
         let lastNews = document.createElement('div')
         let p = document.createElement('p')
         let h3 = document.createElement('h3')
+        let backBlue = document.createElement('div')
+        let backBlueButton = document.createElement('button')
 
         lastNews.classList.add('last-news-mini')
+        lastNews.classList.add('blue-block-clicked')
+        backBlue.classList.add('back-blue')
 
         p.innerHTML = news.release_date
         h3.innerHTML = news.title
         lastNews.style.backgroundImage = 'url(' +  img + news.backdrop_path + ')' 
+        backBlueButton.innerHTML = 'Читать новость'
 
         place.append(lastNews)
         lastNews.append(p, h3)
 
-        lastNews.onclick = ()  => {
+         let back = document.querySelectorAll('.back-blue')        
+     
+         
+
+        lastNews.onclick = () => {
+            for (const b of back) {
+                b.style.scale = "0"
+                b.style.margin = "-100%"
+            }
         let lastNewsMovie = document.querySelector('.last-news-movie')
         let lastNewsMovieTitle = document.querySelector('.last-news-movie h1')
         let lastNewsMovieDate = document.querySelector('.last-news-movie #date')
@@ -284,7 +304,11 @@ export function createAllNews(arr, place) {
         lastNewsMovieTitle.innerHTML = h3.innerHTML
         lastNewsMovieDate.innerHTML = p.innerHTML
         lastNewsMovieDesc.innerHTML = news.overview
+        backBlue.style.margin = "0px"
+        backBlue.style.scale = "1"
         }
+        lastNews.append(backBlue)
+        backBlue.append(backBlueButton)
     }
 }
 
@@ -392,6 +416,4 @@ export function aboutMovieFunc(arr,  place) {
 </div>
         `
  }
-
-
 

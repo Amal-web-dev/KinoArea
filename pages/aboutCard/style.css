@@ -89,7 +89,7 @@ body::before {
 .see-btn:hover {
     background-color: white;
     color: #1E2538;
-} 
+}
 
 .see-btn:hover img {
     filter: invert(80%);
@@ -115,17 +115,17 @@ body::before {
 }
 
 .rating-waiting-block-bar {
-   position: absolute;
-   left: 0;
-   top: 0;
-   background-color: #2E6125;
-   border-radius: 10px;
-   width: 85%;
-   height: 100%;
-   z-index: -1;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #2E6125;
+    border-radius: 10px;
+    width: 85%;
+    height: 100%;
+    z-index: -1;
 }
 
-.rating-waiting-block-bar-black  {
+.rating-waiting-block-bar-black {
     position: absolute;
     left: 0;
     top: 0;
@@ -141,7 +141,7 @@ body::before {
     display: flex;
     align-items: center;
     padding: 0 10px;
-} 
+}
 
 .like-block {
     color: white;
@@ -177,4 +177,31 @@ body::before {
 
 #IMDb p {
     margin-top: 5px;
+}
+
+table {
+    width: 100%;
+}
+
+
+tr {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+td {
+    width: 100%;
+    color: white;
+}
+
+.color-column {
+    color: #F2F60F;
+}
+
+.left-actors-block {
+    margin-top: 50px;
+    display: flex;
+    gap: 150px;
+    justify-content: center;
 }

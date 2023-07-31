@@ -19,7 +19,7 @@ export function axiosGet1(arr) {
 
 export function axiosGet8Popular(arr, place, from, to) {
     place.innerHTML = ''
-    axios.get("https://api.themoviedb.org/3/movie/popular?language=ru-RU", {
+    axios.get("https://api.themoviedb.org/3/movie/popular?language=ru-RU&with_genres=", {
     headers: {
         Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`
     }
