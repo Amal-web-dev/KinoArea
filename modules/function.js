@@ -1,8 +1,11 @@
-let img  = import.meta.env.VITE_BASE_IMG
+let img =
+    import.meta.env.VITE_BASE_IMG
 let moviesBlock = document.querySelector('.movies-block')
 let movieTrailerBlock = document.querySelector('.movie-trailer-block')
 let allNewTrailerBlock = document.querySelector('.all-new-trailer')
-import { getDetails } from "./https.request";
+import {
+    getDetails
+} from "./https.request";
 
 export function reloadMovie(arr, place) {
     for (const movie of arr) {
@@ -20,21 +23,25 @@ export function reloadMovie(arr, place) {
         cardBlock.classList.add('movie-card')
         cardMovie.classList.add('card-movie')
 
-        if(movie.title.length > 25) {
+        if (movie.title.length > 25) {
             h3.innerHTML = movie.title.slice(0, 25) + ' . . . .'
         } else {
             h3.innerHTML = movie.title.slice(0, 25)
         }
-        movieBlock.style.backgroundImage = 'url(' +  img + movie.poster_path + ')'
+        movieBlock.style.backgroundImage = 'url(' + img + movie.poster_path + ')'
         rateBlock.innerHTML = movie.vote_average
-        cardMovie.innerHTML = 'Карточка фильма'  
+        cardMovie.innerHTML = 'Карточка фильма'
         getDetails(`/movie/${movie.id}?language=ru-RU`)
-        .then(res => {
-            const { data: { genres } } = res
-            for (let gen of genres) {
-                p.innerHTML = gen.name
-            }
-        })
+            .then(res => {
+                const {
+                    data: {
+                        genres
+                    }
+                } = res
+                for (let gen of genres) {
+                    p.innerHTML = gen.name
+                }
+            })
 
         place.append(movieBlock)
         movieBlock.append(bottomBlock, rateBlock, cardBlock)
@@ -43,17 +50,17 @@ export function reloadMovie(arr, place) {
 
         cardBlock.onclick = () => {
             location.assign('/pages/aboutCard/?id=' + movie.id)
-          }
+        }
     }
 }
 
 let counterLike = 0
-    let counterDisLike = 0
+let counterDisLike = 0
 // create trailer
 export function createTrailerMovie(arr) {
-    
-    let isLiked = false; 
-    let isDisLiked = false; 
+
+    let isLiked = false;
+    let isDisLiked = false;
 
     for (const trailer of arr) {
         let movieTrailer = document.createElement('div')
@@ -70,7 +77,7 @@ export function createTrailerMovie(arr) {
         let btnDisLikeP = document.createElement('p')
         let likeIcon = document.createElement('img')
         let disLikeIcon = document.createElement('img')
-    
+
         movieTrailer.classList.add('movie-trailer')
         commentBlock.classList.add('comment-block')
         commentLeft.classList.add('comment-left')
@@ -79,21 +86,21 @@ export function createTrailerMovie(arr) {
         btnDisLikeBlock.classList.add('btn-disLike-block')
         btnLike.classList.add('btn-like')
         btnDisLike.classList.add('btn-disLike')
-    
+
         likeIcon.src = './public/icon/Like.svg'
         disLikeIcon.src = './public/icon/disLike.svg'
-        commentImg.src = './public/icon/network-icon.svg' 
+        commentImg.src = './public/icon/network-icon.svg'
         counterLike = Math.floor(trailer.vote_count)
-        counterDisLike = Math.floor(trailer.vote_count / 3) 
+        counterDisLike = Math.floor(trailer.vote_count / 3)
         btnDisLikeP.innerHTML = counterDisLike
         btnlikeP.innerHTML = counterLike
         commentH1.innerHTML = trailer.title
         // movieTrailer.style.backgroundImage = 'url(' +  img + trailer.backdrop_path + ')' 
-        
-        
 
-        movieTrailerBlock.append(movieTrailer)/
-        movieTrailer.append(commentBlock)
+
+
+        movieTrailerBlock.append(movieTrailer) /
+            movieTrailer.append(commentBlock)
         commentBlock.append(commentLeft, commentRight)
         commentLeft.append(commentH1, commentImg)
         commentRight.append(btnLikeBlock, btnDisLikeBlock)
@@ -101,52 +108,52 @@ export function createTrailerMovie(arr) {
         btnDisLikeBlock.append(btnDisLike, btnDisLikeP)
         btnDisLike.append(disLikeIcon)
         btnLike.append(likeIcon)
-    
+
         btnLike.onclick = () => {
-              if (isLiked) {
+            if (isLiked) {
                 likeIcon.src = './public/icon/Like.svg';
-                    counterLike--;
+                counterLike--;
                 btnlikeP.innerHTML = counterLike;
                 isLiked = false;
-              } else {
+            } else {
                 likeIcon.src = './public/icon/Like-full.svg';
                 disLikeIcon.src = './public/icon/disLike.svg';
-                if(isDisLiked) {
-                   counterDisLike--;
+                if (isDisLiked) {
+                    counterDisLike--;
                 }
                 btnDisLikeP.innerHTML = counterDisLike;
                 isDisLiked = false;
                 counterLike++;
                 btnlikeP.innerHTML = counterLike;
                 isLiked = true;
-              }
-          };
+            }
+        };
 
-          
-          btnDisLike.onclick = () => {
-              if (isDisLiked) {
+
+        btnDisLike.onclick = () => {
+            if (isDisLiked) {
                 disLikeIcon.src = './public/icon/disLike.svg';
-                    counterDisLike--;
+                counterDisLike--;
                 btnDisLikeP.innerHTML = counterDisLike;
                 isDisLiked = false;
-              } else {
+            } else {
                 disLikeIcon.src = './public/icon/disLike-full.svg';
                 counterDisLike++;
                 btnDisLikeP.innerHTML = counterDisLike;
                 isDisLiked = true;
                 likeIcon.src = './public/icon/Like.svg';
-                if(isLiked) {
-                   counterLike--;
+                if (isLiked) {
+                    counterLike--;
                 }
                 btnlikeP.innerHTML = counterLike;
                 isLiked = false;
-              }
-          };
+            }
+        };
     }
-    
- 
-   
- }
+
+
+
+}
 
 //  create trailer
 
@@ -155,25 +162,25 @@ let trailerMovieIframe = document.querySelector(".trailers_player")
 
 export function allNewTrailer(arr) {
     for (const trailer of arr) {
-        
+
         let trailerMovie = document.createElement('div')
         let moviePath = document.createElement('div')
         let moviePathTitle = document.createElement('div')
         let moviePathTitleH2 = document.createElement('h2')
         let stopVideoBlock = document.createElement('div')
         let stopVideoIcon = document.createElement('img')
-        
+
         trailerMovie.classList.add('trailer-movie')
         moviePath.classList.add('movie-path')
         moviePathTitle.classList.add('movie-path-title')
         stopVideoBlock.classList.add('stop-video-block')
 
-        if(trailer.title.length > 20) {
+        if (trailer.title.length > 20) {
             moviePathTitleH2.innerHTML = trailer.title.slice(0, 20) + '. . . .'
         } else {
             moviePathTitleH2.innerHTML = trailer.title.slice(0, 20)
         }
-        moviePath.style.backgroundImage = 'url(' +  img + trailer.backdrop_path + ')' 
+        moviePath.style.backgroundImage = 'url(' + img + trailer.backdrop_path + ')'
         stopVideoIcon.src = './public/icon/stop-video-icon.svg'
         moviePath.classList.add('movie-path')
 
@@ -183,21 +190,21 @@ export function allNewTrailer(arr) {
         stopVideoBlock.append(stopVideoIcon)
 
         getDetails(`/movie/${trailer.id}/videos`)
-        .then(res => {
-            let videoObj = res.data.results[0]
+            .then(res => {
+                let videoObj = res.data.results[0]
 
-            trailerMovieIframe.src = `https://www.youtube.com/embed/${videoObj.key}`
+                trailerMovieIframe.src = `https://www.youtube.com/embed/${videoObj.key}`
 
-        })
+            })
 
         moviePath.onclick = () => {
             // let movieTrailer = document.querySelector('.movie-trailer');
             moviePath.style.border = '2px solid #3657CB';
             let otherMoviePaths = document.querySelectorAll('.movie-path');
             otherMoviePaths.forEach((path) => {
-              if (path !== moviePath) {
-                path.style.border = 'none';
-              }
+                if (path !== moviePath) {
+                    path.style.border = 'none';
+                }
             });
             let movieTrailerTitle = document.querySelector('.movie-trailer h1');
             let btnDisLikeP = document.querySelector('.movie-trailer .btn-disLike-block p');
@@ -216,7 +223,7 @@ export function allNewTrailer(arr) {
                     trailerMovieIframe.src = `https://www.youtube.com/embed/${videoObj.key}`
 
                 })
-          };
+        };
     }
 }
 
@@ -254,7 +261,7 @@ export function allNewsInfFunc(arr, place) {
         descP.innerHTML = item.overview
         viewIcon.src = './public/icon/views.svg'
         commentsIcon.src = './public/icon/comments.svg'
-        lastNewsMovie.style.backgroundImage = 'url(' +  img + item.backdrop_path + ')' 
+        lastNewsMovie.style.backgroundImage = 'url(' + img + item.backdrop_path + ')'
 
         place.append(lastNewsMovie)
         lastNewsMovie.append(aboutBlock, descriptNewsBlock)
@@ -279,37 +286,51 @@ export function createAllNews(arr, place) {
 
         p.innerHTML = news.release_date
         h3.innerHTML = news.title
-        lastNews.style.backgroundImage = 'url(' +  img + news.backdrop_path + ')' 
+        lastNews.style.backgroundImage = 'url(' + img + news.backdrop_path + ')'
         backBlueButton.innerHTML = 'Читать новость'
 
         place.append(lastNews)
-        lastNews.append(p, h3)
+        backBlue.append(backBlueButton)
+        lastNews.append(p, h3, backBlue)
 
-         let back = document.querySelectorAll('.back-blue')        
-     
-         
 
         lastNews.onclick = () => {
-            for (const b of back) {
-                b.style.scale = "0"
-                b.style.margin = "-100%"
-            }
-        let lastNewsMovie = document.querySelector('.last-news-movie')
-        let lastNewsMovieTitle = document.querySelector('.last-news-movie h1')
-        let lastNewsMovieDate = document.querySelector('.last-news-movie #date')
-        let lastNewsMovieDesc = document.querySelector('.last-news-movie .description-news-block p')
-        setTimeout(() => {
-        lastNewsMovie.style.backgroundImage = lastNews.style.backgroundImage
-        }, 0);
-        lastNewsMovieTitle.innerHTML = h3.innerHTML
-        lastNewsMovieDate.innerHTML = p.innerHTML
-        lastNewsMovieDesc.innerHTML = news.overview
-        backBlue.style.margin = "0px"
-        backBlue.style.scale = "1"
+            // for (const b of back) {
+            //     b.style.scale = "0"
+            //     b.style.margin = "-100%"
+            // }
+            let lastNewsMovie = document.querySelector('.last-news-movie')
+            let lastNewsMovieTitle = document.querySelector('.last-news-movie h1')
+            let lastNewsMovieDate = document.querySelector('.last-news-movie #date')
+            let lastNewsMovieDesc = document.querySelector('.last-news-movie .description-news-block p')
+            setTimeout(() => {
+                lastNewsMovie.style.backgroundImage = lastNews.style.backgroundImage
+            }, 0);
+            lastNewsMovieTitle.innerHTML = h3.innerHTML
+            lastNewsMovieDate.innerHTML = p.innerHTML
+            lastNewsMovieDesc.innerHTML = news.overview
+            // backBlue.style.margin = "0px"
+            // backBlue.style.scale = "1"
         }
-        lastNews.append(backBlue)
-        backBlue.append(backBlueButton)
+        
     }
+    const lastNews = document.querySelectorAll('.last-news-mini')
+
+    lastNews.forEach((item) => {
+        let back_blue = item.querySelector('.back-blue')
+        item.onclick = () => {
+            
+            lastNews.forEach(el => {
+                let back_blue = el.querySelector('.back-blue')
+                back_blue.style.scale = "0"
+                back_blue.style.margin = "-100%"
+            })
+            back_blue.style.scale = "1"
+            back_blue.style.margin = "0px"
+        }
+    })
+
+
 }
 
 // create person
@@ -317,7 +338,7 @@ export function createAllNews(arr, place) {
 export function createPopularPerson(arr, place) {
     place.innerHTML = ''
     let counPlace = 1
-      
+
     for (const person of arr) {
         let popularHuman = document.createElement('div')
         let descHuman = document.createElement('div')
@@ -325,7 +346,7 @@ export function createPopularPerson(arr, place) {
         let h2 = document.createElement('h2')
         let h3 = document.createElement('h3')
         let p = document.createElement('p')
- 
+
         popularHuman.classList.add('popular-human')
         descHuman.classList.add('descript-human')
         p.classList.add('rate-human')
@@ -333,8 +354,8 @@ export function createPopularPerson(arr, place) {
         h1.innerHTML = person.name
         h3.innerHTML = person.original_name
         h2.innerHTML = Math.floor(person.id / 10) + ' лет'
-        p.innerHTML = counPlace +  '-е место'
-        popularHuman.style.backgroundImage ='url(' +  img + person.profile_path + ')'  
+        p.innerHTML = counPlace + '-е место'
+        popularHuman.style.backgroundImage = 'url(' + img + person.profile_path + ')'
 
         place.append(popularHuman)
         popularHuman.append(descHuman, p)
@@ -379,11 +400,11 @@ export function otherPerson(arr, place) {
 
         placeCount++
     }
- } 
+}
 
 
-export function aboutMovieFunc(arr,  place) {
-        place.innerHTML += `
+export function aboutMovieFunc(arr, place) {
+    place.innerHTML += `
         <div class="about-movie-block">
         <div class="poster-movie" style='background-image: url(${img + arr.poster_path})'>
     </div>
@@ -415,5 +436,4 @@ export function aboutMovieFunc(arr,  place) {
      </div>
 </div>
         `
- }
-
+}
