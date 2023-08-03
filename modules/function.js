@@ -2,6 +2,7 @@ let img  = import.meta.env.VITE_BASE_IMG
 let moviesBlock = document.querySelector('.movies-block')
 let movieTrailerBlock = document.querySelector('.movie-trailer-block')
 let allNewTrailerBlock = document.querySelector('.all-new-trailer')
+let backModal = document.querySelector('.back-modal')
 import { getDetails } from "./https.request";
 
 export function reloadMovie(arr, place) {
@@ -417,3 +418,12 @@ export function aboutMovieFunc(arr,  place) {
         `
  }
 
+export function openModal(modal) {
+    modal.style.scale = '1'
+    backModal.style.display = 'block'
+}
+
+export function closeModal(modal) {
+    modal.style.scale = '0'
+    backModal.style.display = 'none'
+}

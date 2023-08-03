@@ -1,6 +1,6 @@
 import axios, { formToJSON } from 'axios'
 import { header, footer } from "./modules/header.js";
-import { otherPerson, reloadMovie, createTrailerMovie, allNewTrailer, allNewsInfFunc, createAllNews, createPopularPerson } from "./modules/function.js";
+import {  openModal, closeModal, otherPerson, reloadMovie, createTrailerMovie, allNewTrailer, allNewsInfFunc, createAllNews, createPopularPerson } from "./modules/function.js";
 import { axiosGet12, axiosGet1, axiosGet8Popular, axiosGetPopular, axiosGetPopularHuman } from "./modules/ui.js";
 let footerCont = document.querySelector('.footer-cont')
 
@@ -23,6 +23,11 @@ let otherPopularHuman = document.querySelector('.other-popular-human')
 let btnTop = document.querySelector('.btn-top')
 let allPopularBtn = document.querySelector('.all-popular')
 let allGenreBlock = document.querySelector('.all-genre')
+let searchBtn = document.querySelector('.search-btn')
+let searchBlock = document.querySelector('.search-block')
+let closeModalIcon = document.querySelectorAll('.close-modal-icon')
+let btnSignIn = document.querySelector('.btn-sign-in')
+let signInCont = document.querySelector('.sign-in-cont')
 
 let allGenreContent = ['Все', 'Боевик', 'Приключения', 'Комедия', 'Фантастика',  'Ужасы', 'Драма', 'Мелодрама']
 let countFrom = 0
@@ -120,6 +125,7 @@ axiosGetPopularHuman(createPopularPerson, popularPeopleBlock, 0, 2)
 axiosGetPopularHuman(otherPerson, otherPopularHuman, 2, 20)
 
 btnTop.onclick = () => {
+    console.log(window);
     window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
@@ -169,3 +175,22 @@ function allGenre(arr, place) {
     }
 
 allGenre(allGenreContent, allGenreBlock)
+
+
+// search
+
+
+
+searchBtn.onclick = () => {
+    openModal(searchBlock)
+}
+
+btnSignIn.onclick = () => {
+    openModal(signInCont)
+}
+
+closeModalIcon.forEach(close => {
+    close.onclick = () => {
+     closeModal(close.parentElement)
+    }
+})

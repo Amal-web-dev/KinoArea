@@ -18,10 +18,12 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 15px;
+  width: 10px;
   background-color: #1B2234;
   border-radius: 10px;
+  transition: .4s;
 }
+
 
 ::-webkit-scrollbar-thumb {
   background-color: #3657CB;
@@ -815,4 +817,168 @@ a {
   color: white;
   font-size: 16px;
   font-weight: 600;
+}
+
+.search-block {
+  position: absolute;
+  top: -10%;
+  right: 50%;
+  translate: 50% 50%;
+  height: 500px;
+  width: 500px;
+  border-radius: 10px;
+  color: white;
+  overflow-y: scroll;
+  scale: 0;
+  z-index: 3;
+}
+
+.sign-in-cont {
+  position: absolute;
+  top: -10%;
+  right: 50%;
+  translate: 50% 50%;
+  height: 350px;
+  width: 500px;
+  background-color: #151A26;
+  border-radius: 10px;
+  color: white;
+  scale: 0;
+  z-index: 3;
+  text-align: center;
+}
+
+.sign-in-cont h1 {
+  margin: 30px 0;
+}
+
+.sign-in-cont a{
+  color: #3657CB;
+  text-decoration: underline;
+}
+
+.search-block input {
+  width: 100%;
+  background-color: white;
+  border-radius: 5px;
+  position: relative;
+  color: black;
+  outline: none;
+  padding: 15px;
+  border: none;
+  margin-bottom: 5px;
+  margin-top: 30px;
+}
+
+.block-search-icon {
+  background-color: #D8DD14;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 38px;
+  right: 8px;
+  cursor: pointer;
+}
+
+.block-search-icon img {
+  width: 15px;
+  height: 15px;
+}
+
+.movie-block-for-search {
+  padding: 8px 5px;
+  background-color: #100F14;
+  height: 100px;
+  border-radius: 10px;
+  margin-top: 5px;
+}
+
+.movie-block-for-search {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.block-movie-search {
+  overflow: hidden;
+}
+
+.title-block-search {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.title-block-search h3 {
+  color: white;
+}
+
+.title-block-search h6 {
+  color: #6D717D;
+}
+
+.title-block-search h5 {
+  color: #D8DD14;
+}
+
+.poster-block-search {
+  height: 100%;
+  width: 70px;
+  background-image: url(./public/img/joker-post.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 5px;
+}
+
+.back-modal {
+  background-color: black;
+  opacity: .6;
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  display: none;
+  z-index: 2;
+}
+
+.close-modal-icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+}
+
+.from-sign-in {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.from-sign-in button {
+  width: 50%;
+  padding: 15px 0;
+  text-align: center;
+  border-radius: 5px;
+  background-color: #D8DD14;
+  border: none;
+  cursor: pointer;
+}
+
+.from-sign-in input {
+  width: 50%;
+  height: 50px;
+  background-color: #232638;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
 }

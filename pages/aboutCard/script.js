@@ -26,6 +26,7 @@ axios.get(`https://api.themoviedb.org/3/movie/${movie_id}?language=ru-RU`, {
     aboutMovieFunc(res.data, aboutMovieCont)
 })
 
+
 btnTop.onclick = () => {
     window.scrollTo({top: 0, behavior: 'smooth'});
 }
@@ -149,7 +150,7 @@ axios.get(`https://api.themoviedb.org/3/movie/${movie_id}`, {
                         <td class="color-column">Ник Фентон </td>
                       </tr>
                       <tr>
-                        <td> Жанр: </td>
+                        <td>Жанр:</td>
                         <td class="color-column">${allGenres.name}</td>
                       </tr>
                       <tr>
