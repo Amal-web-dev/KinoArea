@@ -51,10 +51,11 @@ export function reloadMovie(arr, place) {
 let counterLike = 0
     let counterDisLike = 0
 // create trailer
-export function createTrailerMovie(arr) {
+export function createTrailerMovie(arr, place) {
     
     let isLiked = false; 
     let isDisLiked = false; 
+
 
     for (const trailer of arr) {
         let movieTrailer = document.createElement('div')
@@ -81,19 +82,17 @@ export function createTrailerMovie(arr) {
         btnLike.classList.add('btn-like')
         btnDisLike.classList.add('btn-disLike')
     
-        likeIcon.src = './public/icon/Like.svg'
-        disLikeIcon.src = './public/icon/disLike.svg'
-        commentImg.src = './public/icon/network-icon.svg' 
+        likeIcon.src = '/public/icon/Like.svg'
+        disLikeIcon.src = '/public/icon/disLike.svg'
+        commentImg.src = '/public/icon/network-icon.svg' 
         counterLike = Math.floor(trailer.vote_count)
         counterDisLike = Math.floor(trailer.vote_count / 3) 
         btnDisLikeP.innerHTML = counterDisLike
         btnlikeP.innerHTML = counterLike
         commentH1.innerHTML = trailer.title
-        // movieTrailer.style.backgroundImage = 'url(' +  img + trailer.backdrop_path + ')' 
-        
         
 
-        movieTrailerBlock.append(movieTrailer)/
+        place.append(movieTrailer)
         movieTrailer.append(commentBlock)
         commentBlock.append(commentLeft, commentRight)
         commentLeft.append(commentH1, commentImg)
@@ -105,13 +104,13 @@ export function createTrailerMovie(arr) {
     
         btnLike.onclick = () => {
               if (isLiked) {
-                likeIcon.src = './public/icon/Like.svg';
+                likeIcon.src = '/public/icon/Like.svg';
                     counterLike--;
                 btnlikeP.innerHTML = counterLike;
                 isLiked = false;
               } else {
-                likeIcon.src = './public/icon/Like-full.svg';
-                disLikeIcon.src = './public/icon/disLike.svg';
+                likeIcon.src = '/public/icon/Like-full.svg';
+                disLikeIcon.src = '/public/icon/disLike.svg';
                 if(isDisLiked) {
                    counterDisLike--;
                 }
@@ -126,16 +125,16 @@ export function createTrailerMovie(arr) {
           
           btnDisLike.onclick = () => {
               if (isDisLiked) {
-                disLikeIcon.src = './public/icon/disLike.svg';
+                disLikeIcon.src = '/public/icon/disLike.svg';
                     counterDisLike--;
                 btnDisLikeP.innerHTML = counterDisLike;
                 isDisLiked = false;
               } else {
-                disLikeIcon.src = './public/icon/disLike-full.svg';
+                disLikeIcon.src = '/public/icon/disLike-full.svg';
                 counterDisLike++;
                 btnDisLikeP.innerHTML = counterDisLike;
                 isDisLiked = true;
-                likeIcon.src = './public/icon/Like.svg';
+                likeIcon.src = '/public/icon/Like.svg';
                 if(isLiked) {
                    counterLike--;
                 }
@@ -175,7 +174,7 @@ export function allNewTrailer(arr) {
             moviePathTitleH2.innerHTML = trailer.title.slice(0, 20)
         }
         moviePath.style.backgroundImage = 'url(' +  img + trailer.backdrop_path + ')' 
-        stopVideoIcon.src = './public/icon/stop-video-icon.svg'
+        stopVideoIcon.src = '/public/icon/stop-video-icon.svg'
         moviePath.classList.add('movie-path')
 
         allNewTrailerBlock.append(trailerMovie)
@@ -253,8 +252,8 @@ export function allNewsInfFunc(arr, place) {
         spanComments.innerHTML = '14'
         descH1.innerHTML = item.title
         descP.innerHTML = item.overview
-        viewIcon.src = './public/icon/views.svg'
-        commentsIcon.src = './public/icon/comments.svg'
+        viewIcon.src = '/public/icon/views.svg'
+        commentsIcon.src = '/public/icon/comments.svg'
         lastNewsMovie.style.backgroundImage = 'url(' +  img + item.backdrop_path + ')' 
 
         place.append(lastNewsMovie)
@@ -391,14 +390,13 @@ export function aboutMovieFunc(arr,  place) {
     <div class="about-right">
     <h1>${arr.title}</h1>
     <h3>${arr.original_title}</h3>
-    <div class="rate-imdb-block">${arr.vote_average.toFixed(1)}- IMDB</div>
     <div id="IMDb" style="width: 70px; height: 70px;">
             <canvas id="IMDbChart"></canvas>
                     <div class="rate__counter rate__counter_IMDb"><span>6.70</span></div>
                 <p>IMDb</p>
             </div>
     <div class="desc-about-movie">
-    <p>${arr.overview}</p>
+    <p>${arr.overview.slice(0, 200)}. . . .</p>
 </div>
 <button class="see-btn"><img src="/public/icon/see-video-icon.svg" alt=""> Смотреть трейлер</button>
 </div>
@@ -426,4 +424,63 @@ export function openModal(modal) {
 export function closeModal(modal) {
     modal.style.scale = '0'
     backModal.style.display = 'none'
+}
+
+
+export function reloadProduction(arr, place) {
+    for (const item of arr) {
+        place.innerHTML += `
+        <div class="product-block">
+        <div class="produt-man-block">
+            <img src="${img + item.profile_path}">
+        </div>
+        <div class="product-descr-man">
+            <h3>${item.name}</h3>
+            <h5>${item.name}</h5>
+            <h4>${item.department}</h4>
+        </div>
+    </div>
+        `
+    }
+    place.innerHTML += `
+    <div class="create-block">
+    <h3>Производство:</h3> <br>
+    <span>1:</span><a href="#">Arclight Films</a> <br>
+    <span>2:</span><a href="#">Beagle Pug Films</a> <br>
+    <span>3:</span><a href="#">Footprint Films</a> 
+</div>
+    `
+}
+
+export function reloadStarActors(arr, place) {
+    place.innerHTML = ""
+
+    for (let item of arr) {
+        let actor = document.createElement("div")
+        let actor_img = document.createElement("div")
+        let actor_info = document.createElement("div")
+        let actor_name = document.createElement("h3")
+        let actor_original_name = document.createElement("p")
+        let actor_role = document.createElement("p")
+
+
+        actor.classList.add('actor')
+        actor_img.classList.add('actor-img')
+        actor_info.classList.add("actor_info")
+        actor_name.classList.add('actor_name')
+        actor_role.classList.add('actor_role')
+        actor_role.classList.add("yellow")
+        actor_original_name.classList.add('actor_original_name')
+
+        actor_img.style.backgroundImage = `url(${img + item.profile_path})`
+        actor_name.innerHTML = item.name
+        actor_original_name.innerHTML = item.original_name
+        actor_role.innerHTML = item.character
+
+        actor.append(actor_img, actor_info)
+        actor_info.append(actor_name, actor_original_name, actor_role)
+        place.append(actor)
+
+    }
+
 }

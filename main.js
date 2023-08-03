@@ -66,7 +66,7 @@ axiosGet8Popular(reloadMovie, moviesBlock, 0, 8)
 
 
 //  create trailer
-axiosGet1(createTrailerMovie)
+axiosGet1(createTrailerMovie, movieTrailerBlock)
 //  create trailer
 
 

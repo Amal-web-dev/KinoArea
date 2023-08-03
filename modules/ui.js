@@ -9,12 +9,12 @@ export function axiosGet12(arr) {
 }).then(res => arr(res.data.results.slice(0, 12)))
 }
 
-export function axiosGet1(arr) {
+export function axiosGet1(arr, place) {
     axios.get("https://api.themoviedb.org/3/trending/movie/day?language=ru-RU", {
     headers: {
         Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`
     }
-}).then(res => arr(res.data.results.slice(0, 1)))
+}).then(res => arr(res.data.results.slice(0, 1), place))
 }
 
 export function axiosGet8Popular(arr, place, from, to) {
