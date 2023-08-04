@@ -12,7 +12,9 @@ import {
     allNewTrailer,
     allNewsInfFunc,
     createAllNews,
-    createPopularPerson
+    createPopularPerson,
+    openModal,
+    closeModal
 } from "./modules/function.js";
 import {
     axiosGet12,
@@ -49,7 +51,6 @@ let closeModalIcon = document.querySelectorAll('.close-modal-icon')
 let btnSignIn = document.querySelector('.btn-sign-in')
 let signInCont = document.querySelector('.sign-in-cont')
 
-let allGenreContent = ['Все', 'Боевик', 'Приключения', 'Комедия', 'Фантастика', 'Ужасы', 'Драма', 'Мелодрама']
 let countFrom = 0
 let countTo = 4
 
@@ -133,6 +134,17 @@ arrowRight.onclick = () => {
     }
 
 }
+
+axios.get("https://api.themoviedb.org/3/genre/movie/list?language=ru-RU", {
+    headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`
+    }
+}).then(res => {
+    allGenre(res.data.genres, allGenreBlock)
+}
+)
+
+
 // swiper
 axiosGetPopular(reloadMovie, popularMoviesBlock, 0, 4)
 // popular movie
@@ -167,8 +179,9 @@ function allGenre(arr, place) {
 
         hoveredBlock.classList.add('hovered-block')
 
-        p.innerHTML = genre
-
+        p.classList.add('genre-p')
+        p.innerHTML = genre.name
+        p.id = genre.id
 
         hoveredBlock.append(p)
         place.append(hoveredBlock)
@@ -180,29 +193,29 @@ function allGenre(arr, place) {
                 hover.classList.remove('click-block')
             })
             hoveredBlock.classList.add('click-block')
-
-            // axios.get("https://api.themoviedb.org/3/movie/popular?language=ru-RU&with_genres=", {
-            //     headers: {
-            //         Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`
-            //     }
-            // }).then(res =>  {
-            //     let results = res.data.results
-            //     // if(p.innerHTML.trim().toLowerCase() == 'все') {
-            //     // axiosGet8Popular(reloadMovie, moviesBlock, 0, 8)
-            //     // } 
-            //     results.forEach(re => {
-            //         if(re.genre_ids[0] == 2 || re.genre_ids[1] == 12 || re.genre_ids[2] == 28) {
-            //             console.log('efef');
-            //         }
-            //        console.log(re.genre_ids);
-            //     })
-            // })
         }
 
     }
 }
 
-allGenre(allGenreContent, allGenreBlock)
+setTimeout(() => {
+    let allGenreP = document.querySelectorAll('.genre-p')
+
+
+    allGenreP.forEach(p => {
+        p.onclick = () => {
+            axios.get("https://api.themoviedb.org/3/movie/popular?language=ru-RU&with_genres=" + p.id, {
+                headers: {
+                    Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`
+                }
+            }).then(res => {
+                reloadMovie(res.data.results.slice(0, 8), moviesBlock)
+            })
+        }
+    })
+}, 500);
+
+
 
 
 // search
@@ -219,6 +232,20 @@ btnSignIn.onclick = () => {
 
 closeModalIcon.forEach(close => {
     close.onclick = () => {
-     closeModal(close.parentElement)
+        closeModal(close.parentElement)
+    }
+})
+
+let yearP = document.querySelectorAll('.year-p')
+
+yearP.forEach(p => {
+    p.onclick = () => {
+        axios.get("https://api.themoviedb.org/3/movie/popular?language=ru-RU&year=" + p.innerHTML, {
+            headers: {
+                Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`
+            }
+        }).then(res => {
+            reloadMovie(res.data.results.slice(0, 4), popularMoviesBlock)
+        })
     }
 })

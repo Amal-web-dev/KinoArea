@@ -7,6 +7,8 @@ let backModal = document.querySelector('.back-modal')
 import { getDetails } from "./https.request";
 
 export function reloadMovie(arr, place) {
+    place.innerHTML = ''
+
     for (const movie of arr) {
         let movieBlock = document.createElement('div')
         let bottomBlock = document.createElement('div')

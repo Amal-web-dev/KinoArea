@@ -176,6 +176,9 @@ a {
   display: flex;
   align-items: center;
   gap: 20px;
+  width: 1300px;
+
+  overflow-x: scroll;
 }
 
 .all-genre p {
@@ -460,6 +463,8 @@ a {
 .popular-movie-block {
   margin-top: 60px;
   height: 750px;
+  position: relative;
+  z-index: 10;
 }
 
 .popular-movies-block {
