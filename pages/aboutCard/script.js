@@ -70,7 +70,6 @@ getDetails(`/movie/${movie_id}/videos`)
     
       getDetails(`/movie/${movie_id}/similar?language=ru-RU`)
       .then(res => {
-        console.log(res);
               reloadMovie(res.data.results.slice(0, 4), similarBlock);
       });
 
@@ -91,7 +90,7 @@ new Chart(imdb_ctx, {
       labels: ['IMDb', 'IMDb',],
       datasets: [{
           data: [res.data.vote_average * 10, 100 - res.data.vote_average * 10],
-          backgroundColor: [getColorByNumber(res.data.vote_average), "transparent"],
+          backgroundColor: [getColorByNumber(res.data.vote_average), getColorByNumber(res.data.vote_average) + '70'],
           cutout: '70%',
           borderWidth: 0
       }]
@@ -99,7 +98,7 @@ new Chart(imdb_ctx, {
   options: {
       plugins: {
           legend: {
-              display: false, // Убрать надписи сбоку (легенда)
+              display: false,
           }
       }
   }

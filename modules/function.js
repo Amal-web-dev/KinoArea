@@ -404,6 +404,8 @@ export function otherPerson(arr, place) {
 
 
 export function aboutMovieFunc(arr, place) {
+
+    console.log(arr);
     place.innerHTML += `
         <div class="about-movie-block">
         <div class="poster-movie" style='background-image: url(${img + arr.poster_path})'>
@@ -413,7 +415,7 @@ export function aboutMovieFunc(arr, place) {
     <h3>${arr.original_title}</h3>
     <div id="IMDb" style="width: 70px; height: 70px;">
             <canvas id="IMDbChart"></canvas>
-                    <div class="rate__counter rate__counter_IMDb"><span>6.70</span></div>
+                    <div class="rate__counter rate__counter_IMDb"><span>${arr.vote_average.toFixed(1)}</span></div>
                 <p>IMDb</p>
             </div>
     <div class="desc-about-movie">
@@ -431,7 +433,7 @@ export function aboutMovieFunc(arr, place) {
      </div>
      <div class="like-block">
         <button class="btn-like heart-btn"><img src="/public/icon/heart-icon.svg" alt=""></button>
-        <span>В избранном у 37933 человек </span>
+        <span>В избранном у ${arr.vote_count} человек </span>
      </div>
 </div>
         `

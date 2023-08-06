@@ -178,6 +178,7 @@ function allGenre(arr, place) {
         let hoveredBlock = document.createElement('div')
 
         hoveredBlock.classList.add('hovered-block')
+        hoveredBlock.classList.add('genre-hover')
 
         p.classList.add('genre-p')
         p.innerHTML = genre.name
@@ -200,11 +201,14 @@ function allGenre(arr, place) {
 
 setTimeout(() => {
     let allGenreP = document.querySelectorAll('.genre-p')
+    let hoveredBl = document.querySelectorAll('.genre-hover')
 
 
-    allGenreP.forEach(p => {
+
+    hoveredBl.forEach(p => {
         p.onclick = () => {
-            axios.get("https://api.themoviedb.org/3/movie/popular?language=ru-RU&with_genres=" + p.id, {
+            let pValue = p.firstChild.id
+            axios.get("https://api.themoviedb.org/3/movie/popular?language=ru-RU&with_genres=" + pValue, {
                 headers: {
                     Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`
                 }
@@ -238,9 +242,10 @@ closeModalIcon.forEach(close => {
 
 let yearP = document.querySelectorAll('.year-p')
 
-yearP.forEach(p => {
-    p.onclick = () => {
-        axios.get("https://api.themoviedb.org/3/movie/popular?language=ru-RU&year=" + p.innerHTML, {
+
+yearP.forEach(pYear => {
+    pYear.onclick = () => {
+        axios.get("https://api.themoviedb.org/3/movie/popular?language=ru-RU&year=" + pYear.innerHTML, {
             headers: {
                 Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`
             }

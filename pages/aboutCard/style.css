@@ -379,3 +379,9 @@ h1 {
     justify-content: center;
     margin-top: 30px;
 }
+
+.rate__counter span{
+    margin-left: 4px;
+    margin-top: -3px;
+    font-size: 16px;
+} 
