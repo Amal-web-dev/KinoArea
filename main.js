@@ -14,7 +14,9 @@ import {
     createAllNews,
     createPopularPerson,
     openModal,
-    closeModal
+    closeModal,
+    reloadSearch,
+    reloadSearchPerson
 } from "./modules/function.js";
 import {
     axiosGet12,
@@ -23,13 +25,16 @@ import {
     axiosGetPopular,
     axiosGetPopularHuman
 } from "./modules/ui.js";
+import {
+     getDetails 
+    } 
+    from "./modules/https.request.js";
 let footerCont = document.querySelector('.footer-cont')
 
 header()
 footer(footerCont)
 
-let img =
-    import.meta.env.VITE_BASE_IMG
+let img = import.meta.env.VITE_BASE_IMG
 let moviesBlock = document.querySelector('.movies-block')
 let movieTrailerBlock = document.querySelector('.movie-trailer-block')
 let allNewTrailerBlock = document.querySelector('.all-new-trailer')
@@ -50,8 +55,14 @@ let searchBlock = document.querySelector('.search-block')
 let closeModalIcon = document.querySelectorAll('.close-modal-icon')
 let btnSignIn = document.querySelector('.btn-sign-in')
 let signInCont = document.querySelector('.sign-in-cont')
+let searchPlace = document.querySelector('.all-movie-search')
+let searchInp = document.querySelector('#search-inp')
+let btnSearch = document.querySelector('.block-search-icon')
+let posterBlockSearchPerson = document.querySelector('.all-person-search')
+let cont = document.querySelector('.container')
 
 let countFrom = 0
+let val
 let countTo = 4
 
 //  change icon color
@@ -92,6 +103,38 @@ axiosGet8Popular(reloadMovie, moviesBlock, 0, 8)
 //  создает обложки кино
 
 
+
+
+searchInp.onkeyup = (e) => {
+    val = searchInp.value.toLowerCase().trim()
+    if (e.key === "Enter") {
+        getData(searchPlace, val)
+        getDataPerson(posterBlockSearchPerson, val)
+    }
+}
+
+
+btnSearch.onclick = () => {
+    getData(searchPlace, val)
+    getDataPerson(posterBlockSearchPerson, val) 
+}
+
+function getData(place, name) {
+    getDetails(`/search/movie?query=${name}`)
+        .then(res => {
+            reloadSearch(res.data.results, place)
+        })
+}
+
+function getDataPerson(place, name) {
+    getDetails(`/search/person?query=${name}`)
+        .then(res => {
+            reloadSearchPerson(res.data.results, place)
+        })
+}
+
+getDataPerson(posterBlockSearchPerson, 'statham') 
+getData(searchPlace, 'barbie')
 //  create trailer
 axiosGet1(createTrailerMovie, movieTrailerBlock)
 //  create trailer
@@ -167,6 +210,19 @@ btnTop.onclick = () => {
         top: 0,
         behavior: 'smooth'
     });
+    btnTop.style.bottom = "-80px"
+}
+
+window.onscroll = () => {
+    let { top } = cont.getBoundingClientRect()
+
+    if (Math.abs(top) > 500) {
+        btnTop.style.bottom = "50px"
+
+    } else {
+        btnTop.style.bottom = "-80px"
+
+    }
 }
 
 // all genre

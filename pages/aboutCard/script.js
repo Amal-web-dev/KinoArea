@@ -17,17 +17,22 @@ let footerCont = document.querySelector('.footer-cont')
 header()
 footer(footerCont)
 
+
 let movie_id = location.search.split("=").at(-1)
 let trailer_movie = document.querySelector('.trailer_movie-movie')
 let iframe = document.querySelector('iframe')
-
-
-
-
 let productionCont = document.querySelector('.production-cont')
 let starActorCont = document.querySelector('.all-actor-block')
 let personnelBlock = document.querySelector('.personnel-block')
 
+
+setTimeout(() => {
+  let btnSee = document.querySelector('.see-btn')
+btnSee.onclick = () => {
+  window.scrollTo({top: 2300, behavior: 'smooth'});
+}
+
+}, 500);
 
 getDetails(`/movie/${movie_id}/credits`)
     .then(res => {
@@ -57,7 +62,7 @@ getDetails(`/movie/${movie_id}/videos`)
 
         personnelBlock.innerHTML = ""
 
-        for (let item of res.data.backdrops.slice(10, 16)) {
+        for (let item of res.data.backdrops.slice(0, 6)) {
             let stills_item = document.createElement("div")
             stills_item.classList.add('stills_item')
             stills_item.style.backgroundImage = `url(${img + item.file_path})`
@@ -75,9 +80,6 @@ getDetails(`/movie/${movie_id}/videos`)
 
 getDetails(`/movie/${movie_id}`)
 .then(res => {
-  let { data: { genres} } = res
-
-
   createTrailerMovie([res.data], trailer_movie)
   body.style.backgroundImage = 'url(' +  img + res.data.backdrop_path + ')'
   aboutMovieFunc(res.data, aboutMovieCont)

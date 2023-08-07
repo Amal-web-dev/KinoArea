@@ -30,7 +30,7 @@ export function reloadMovie(arr, place) {
             h3.innerHTML = movie.title.slice(0, 25)
         }
         movieBlock.style.backgroundImage = 'url(' + img + movie.poster_path + ')'
-        rateBlock.innerHTML = movie.vote_average
+        rateBlock.innerHTML = movie.vote_average.toFixed(1)
         cardMovie.innerHTML = 'Карточка фильма'
         getDetails(`/movie/${movie.id}?language=ru-RU`)
             .then(res => {
@@ -442,11 +442,13 @@ export function aboutMovieFunc(arr, place) {
 export function openModal(modal) {
     modal.style.scale = '1'
     backModal.style.display = 'block'
+    document.body.style.overflowY = 'hidden'
 }
 
 export function closeModal(modal) {
     modal.style.scale = '0'
     backModal.style.display = 'none'
+    document.body.style.overflowY = 'scroll'
 }
 
 
@@ -506,4 +508,77 @@ export function reloadStarActors(arr, place) {
 
     }
 
+}
+
+
+
+export function reloadSearch(arr, place) {
+    place.innerHTML = ''
+
+    for (const item of arr) {
+        let movieBlock = document.createElement('div')
+        let posterSearch = document.createElement('div')
+        let titleBlock = document.createElement('div')
+        let rateBlock = document.createElement('div')
+        let h3 = document.createElement('p')
+        let h6 = document.createElement('h6')
+        let h5 = document.createElement('h5')
+
+
+        movieBlock.classList.add('movie-block-for-search')
+        posterSearch.classList.add('poster-block-search')
+        titleBlock.classList.add('title-block-search')
+        rateBlock.classList.add('right-rate')
+
+        if(item.title.length >= 10) {
+            h3.innerHTML = item.title.slice(0, 10) + '..'
+        } else {
+            h3.innerHTML = item.title.slice(0, 10)
+        }
+        h5.innerHTML = item.release_date.slice(0, 4) + ' year'
+        h6.innerHTML = item.original_title.slice(0, 8) 
+        rateBlock.innerHTML =  item.vote_average.toFixed(1)
+
+        if(item.poster_path) {
+            posterSearch.style.backgroundImage = 'url(' + img + item.poster_path + ')' 
+        }  else {
+            posterSearch.style.backgroundImage =  `url(/public/img/poster-without.png)`
+        }
+
+        place.append(movieBlock)
+        movieBlock.append(posterSearch, titleBlock, rateBlock)
+        titleBlock.append(h3, h6, h5)
+    }
+}
+
+export function reloadSearchPerson(arr, place) {
+    place.innerHTML = ''
+
+    for (const item of arr) {
+        let movieBlock = document.createElement('div')
+        let posterSearch = document.createElement('div')
+        let titleBlock = document.createElement('div')
+        let h3 = document.createElement('p')
+        let h6 = document.createElement('h6')
+        let h5 = document.createElement('h5')
+
+
+        movieBlock.classList.add('movie-block-for-search')
+        posterSearch.classList.add('poster-block-search')
+        titleBlock.classList.add('title-block-search')
+
+        h3.innerHTML = item.name
+        h5.innerHTML = "work: " + item.known_for_department
+        h6.innerHTML = item.original_name
+
+        if(item.profile_path) {
+            posterSearch.style.backgroundImage = 'url(' + img + item.profile_path + ')' 
+        }  else {
+            posterSearch.style.backgroundImage =  `url(/public/img/poster-without.png)`
+        }
+
+        place.append(movieBlock)
+        movieBlock.append(posterSearch, titleBlock)
+        titleBlock.append(h3, h6, h5)
+    }
 }
