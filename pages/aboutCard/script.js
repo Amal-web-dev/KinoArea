@@ -8,7 +8,7 @@ import { axiosGet1 } from "../../modules/ui";
 Chart.register(...registerables)
 
 let movieCard = document.querySelector('.movie-card')
-let body = document.querySelector('body')
+let backdrop = document.querySelector('.backdrop_path-back')
 let img  = import.meta.env.VITE_BASE_IMG
 let aboutMovieCont  = document.querySelector('.about-cont')
 let btnTop = document.querySelector('.btn-top')
@@ -81,7 +81,7 @@ getDetails(`/movie/${movie_id}/videos`)
 getDetails(`/movie/${movie_id}`)
 .then(res => {
   createTrailerMovie([res.data], trailer_movie)
-  body.style.backgroundImage = 'url(' +  img + res.data.backdrop_path + ')'
+  backdrop.style.backgroundImage = 'url(' +  img + res.data.backdrop_path + ')'
   aboutMovieFunc(res.data, aboutMovieCont)
 
 const imdb_ctx = document.getElementById('IMDbChart').getContext('2d');

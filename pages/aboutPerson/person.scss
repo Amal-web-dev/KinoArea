@@ -1,0 +1,192 @@
+* {
+    color: white;
+}
+
+.about-person-block {
+    width: 80%;
+    margin: 30px auto;
+    height: 400px;
+    display: flex;
+    gap: 50px;
+    color: white;
+}
+
+.left-side-person {
+    height: 100%;
+    width: 300px;
+    border-radius: 10px;
+}
+
+.poster-person {
+    width: 100%;
+    height: 100%;
+    // background-image: url(/public/img/poster-without.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+}
+
+.inf-block-choose {
+    display: flex;
+    gap: 40px;
+    margin: 20px 0 10px 0;
+    color: #6D717D;
+}
+
+.inf-block-choose p {
+    cursor: pointer;
+}
+
+
+.actor_info {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    gap: 20px;
+    align-items: start;
+
+    li {
+        display: flex;
+        justify-content: start;
+        gap: 60px;
+        width: 632px;
+
+        span {
+            white-space: nowrap;
+            width: 35px;
+        }
+
+        .regular {
+            color: #D2D3D7;
+        }
+
+        .yellow {
+            color: #F2F60F;
+            text-decoration: underline;
+
+            font-weight: 200;
+        }
+    }
+}
+
+.heart-btn {
+    margin-top: 30px;
+}
+
+.active-info {
+    color: white;
+    text-decoration: underline;
+}
+
+.no-active-block {
+    margin-left: -100%;
+    opacity: 0;
+}
+
+.no-active-block-bio {
+    margin-right: -100%;
+    opacity: 0;
+}
+
+.all-inf-bio-block {
+    display: flex;
+}
+
+.bio-block {
+    width: 400px;
+    overflow-x: hidden;
+    margin-right: -400px;
+    position: relative;
+
+    p {
+        border-radius: 7px;
+        padding-bottom: 20px;
+        line-height: 20px;
+        height: 201px;
+        width: 632px;
+        overflow: auto;
+    }
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+        width: 100%;
+        height: 35px;
+        background: linear-gradient(180deg, transparent, #1E2538);
+    }
+
+}
+
+
+.popular-person-block {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: auto;
+    grid-gap: 40px 30px;
+    justify-items: center;
+}
+
+.popular-person-cont h1{
+    color: white;
+    margin-bottom: 30px;
+    margin-top: 100px;
+}
+
+.last-news-cont h1 {
+    margin-top: 30px;
+}
+
+.last-news-block {
+    margin-top: 0px;
+}
+
+.all-last-news-block {
+    height: 800px;
+    width: 300px;
+    margin-top: 30px;
+}
+
+.all-news {
+    display: flex;
+}
+
+.photo-cont h1 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.photo-cont h3 {
+    margin-bottom: 30px;
+}
+
+.photo-block {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 360.559px;
+    grid-gap: 20px;
+    margin-bottom: 40px;
+    margin-top: 30px;
+} 
+
+.stills_item:first-child {
+    grid-column: 1/3;
+}
+
+.stills_item:nth-child(5) {
+    grid-column: 2/4;
+}
+
+.stills_item {
+    border-radius: 10px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}

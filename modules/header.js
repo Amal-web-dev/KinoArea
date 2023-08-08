@@ -64,7 +64,7 @@ export function footer(place) {
      <div class="container">
         <div class="links-cont">
           <div class="top-links">
-            <img src="./public/icon/cinema-icon.svg" alt="">
+            <img src="/public/icon/cinema-icon.svg" alt="">
             <span>Kinoarea</span>
           </div>   
 

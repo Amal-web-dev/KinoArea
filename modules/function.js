@@ -270,6 +270,7 @@ export function allNewsInfFunc(arr, place) {
     }
 }
 
+
 export function createAllNews(arr, place) {
     place.innerHTML = ''
 
@@ -280,13 +281,19 @@ export function createAllNews(arr, place) {
         let backBlue = document.createElement('div')
         let backBlueButton = document.createElement('button')
 
+
+
         lastNews.classList.add('last-news-mini')
         lastNews.classList.add('blue-block-clicked')
         backBlue.classList.add('back-blue')
 
         p.innerHTML = news.release_date
         h3.innerHTML = news.title
-        lastNews.style.backgroundImage = 'url(' + img + news.backdrop_path + ')'
+        if(news.backdrop_path)  {
+            lastNews.style.backgroundImage = 'url(' + img + news.backdrop_path + ')'
+        } else {
+            lastNews.style.backgroundImage = `url(/public/img/poster-without.png)`
+        }
         backBlueButton.innerHTML = 'Читать новость'
 
         place.append(lastNews)
@@ -295,10 +302,6 @@ export function createAllNews(arr, place) {
 
 
         lastNews.onclick = () => {
-            // for (const b of back) {
-            //     b.style.scale = "0"
-            //     b.style.margin = "-100%"
-            // }
             let lastNewsMovie = document.querySelector('.last-news-movie')
             let lastNewsMovieTitle = document.querySelector('.last-news-movie h1')
             let lastNewsMovieDate = document.querySelector('.last-news-movie #date')
@@ -309,28 +312,10 @@ export function createAllNews(arr, place) {
             lastNewsMovieTitle.innerHTML = h3.innerHTML
             lastNewsMovieDate.innerHTML = p.innerHTML
             lastNewsMovieDesc.innerHTML = news.overview
-            // backBlue.style.margin = "0px"
-            // backBlue.style.scale = "1"
         }
         
     }
-    const lastNews = document.querySelectorAll('.last-news-mini')
-
-    lastNews.forEach((item) => {
-        let back_blue = item.querySelector('.back-blue')
-        item.onclick = () => {
-            
-            lastNews.forEach(el => {
-                let back_blue = el.querySelector('.back-blue')
-                back_blue.style.scale = "0"
-                back_blue.style.margin = "-100%"
-            })
-            back_blue.style.scale = "1"
-            back_blue.style.margin = "0px"
-        }
-    })
-
-
+   
 }
 
 // create person
@@ -405,7 +390,6 @@ export function otherPerson(arr, place) {
 
 export function aboutMovieFunc(arr, place) {
 
-    console.log(arr);
     place.innerHTML += `
         <div class="about-movie-block">
         <div class="poster-movie" style='background-image: url(${img + arr.poster_path})'>
@@ -454,18 +438,45 @@ export function closeModal(modal) {
 
 export function reloadProduction(arr, place) {
     for (const item of arr) {
-        place.innerHTML += `
-        <div class="product-block">
-        <div class="produt-man-block">
-            <img src="${img + item.profile_path}">
-        </div>
-        <div class="product-descr-man">
-            <h3>${item.name}</h3>
-            <h5>${item.name}</h5>
-            <h4>${item.department}</h4>
-        </div>
-    </div>
-        `
+       let productBlock = document.createElement('div')
+       let productManBlock = document.createElement('div')
+       let productDescBlock = document.createElement('div')
+       let h3 = document.createElement('h3')
+       let h5 = document.createElement('h5')
+       let h4 = document.createElement('h4')
+       let productPoster = document.createElement('img')
+
+
+       productBlock.classList.add('product-block')
+       productManBlock.classList.add('produt-man-block')
+       productDescBlock.classList.add('product-descr-man')
+       h3.innerHTML = item.name
+       h5.innerHTML = item.name
+       h4.innerHTML = item.department
+       console.log(item);
+       if(item.profile_path) {
+        productPoster.src = `${img + item.profile_path}`
+       }else {
+        productPoster.src = '/public/img/poster-without.png'
+       }
+
+       place.append(productBlock)
+       productBlock.append(productManBlock, productDescBlock)
+       productManBlock.append(productPoster)
+       productDescBlock.append(h3, h5, h4)
+
+    //     place.innerHTML += `
+    //     <div class="product-block">
+    //     <div class="produt-man-block">
+    //         <img src="${img + item.profile_path}">
+    //     </div>
+    //     <div class="product-descr-man">
+    //         <h3>${item.name}</h3>
+    //         <h5>${item.name}</h5>
+    //         <h4>${item.department}</h4>
+    //     </div>
+    // </div>
+    //     `
     }
     place.innerHTML += `
     <div class="create-block">
@@ -497,7 +508,11 @@ export function reloadStarActors(arr, place) {
         actor_role.classList.add("yellow")
         actor_original_name.classList.add('actor_original_name')
 
-        actor_img.style.backgroundImage = `url(${img + item.profile_path})`
+        if(item.profile_path) {
+            actor_img.style.backgroundImage = `url(${img + item.profile_path})`
+           }else {
+            actor_img.style.backgroundImage = `url(/public/img/poster-without.png)`
+           }
         actor_name.innerHTML = item.name
         actor_original_name.innerHTML = item.original_name
         actor_role.innerHTML = item.character
@@ -505,6 +520,11 @@ export function reloadStarActors(arr, place) {
         actor.append(actor_img, actor_info)
         actor_info.append(actor_name, actor_original_name, actor_role)
         place.append(actor)
+
+
+        actor.onclick = () => {
+            location.assign('/pages/aboutPerson/?id=' + item.id)
+        }
 
     }
 
@@ -548,6 +568,10 @@ export function reloadSearch(arr, place) {
         place.append(movieBlock)
         movieBlock.append(posterSearch, titleBlock, rateBlock)
         titleBlock.append(h3, h6, h5)
+
+        movieBlock.onclick = () => {
+            location.assign('/pages/aboutCard/?id=' + item.id)
+        }
     }
 }
 

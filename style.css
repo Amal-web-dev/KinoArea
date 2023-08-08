@@ -10,11 +10,15 @@
 
 body {
   background-color: #232638;
-  background-image: url(./public/img/joker-img.png);
+  /* background-image: url(./public/img/joker-img.png); */
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: top;
   overflow-x: hidden;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+  width: 100%;
 }
 
 ::-webkit-scrollbar {
@@ -187,8 +191,8 @@ a {
 }
 
 .movie {
-  width: 339px;
-  height: 520px;
+  width: 280px;
+  height: 470px;
   background-image: url(./public/img/joker-post.jpg);
   background-position: top;
   background-repeat: no-repeat;
@@ -827,7 +831,7 @@ a {
 
 .search-block {
   position: absolute;
-  top: -10%;
+  top: -2%;
   right: 50%;
   translate: 50% 50%;
   height: 500px;
@@ -841,7 +845,7 @@ a {
 
 .sign-in-cont {
   position: absolute;
-  top: -10%;
+  top: 0%;
   right: 50%;
   translate: 50% 50%;
   height: 350px;
